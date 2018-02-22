@@ -1,0 +1,30 @@
+{
+	"name":"topvisor/topvisor-sdk",
+	"description":"Topvisor SDK",
+	"keywords":[
+		"Topvisor",
+		"Проверка позиций сайтов",
+		"Rank Tracker",
+		"Rank Checker"
+	],
+	"license":"MIT",
+	"type":"library",
+	"authors":[
+		{
+			"name":"Artemeey",
+			"email":"artemeey.ru@mail.ru"
+		}
+	],
+	"require":{
+		"php":"^7.0",
+		"ext-xmlwriter":"*",
+		"ext-zip":"*",
+		"ext-date":"*",
+		"ext-mbstring":"*"
+	},
+	"autoload":{
+		"psr-4":{
+			"Topvisor\\TopvisorSDK":"src/"
+		}
+	}
+}
