@@ -17,9 +17,6 @@
 	],
 	"require":{
 		"php":"^7.0",
-		"ext-xmlwriter":"*",
-		"ext-zip":"*",
-		"ext-date":"*",
 		"ext-mbstring":"*"
 	},
 	"autoload":{
