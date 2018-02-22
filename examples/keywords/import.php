@@ -16,12 +16,17 @@ $Session = new TV\Session();
 $projectId = 2121417; // id проекта
 
 // создание объекта TV\Pen, установка данных, выполнение запроса
+$CSVFile = "name;tags;target;group_folder_path;group_name\nkeyword1;2;https://your/target;Папка;Группа\nkeyword2;3;https://your/target;Папка;Группа";
+$importerData = ['project_id' => $projectId, 'keywords' => $CSVFile];
 $importer = new TV\Pen($Session, 'add', 'keywords_2', 'keywords/import');
-$
-$importer->setData(['project_id' => $projectId, 'keywords' => "name;tags;target;group_folder_path;group_name\none;2;hello;Папка;Группа\ntwo;3;hello;Папка;Группа"]);
-$resultOfImporter = $importer->exec()->getResult();
+$importer->setData($importerData);
+$importedPage = $importer->exec();
+
+// если возникло исключение -> ошибка
+if($importedPage->getErrors()) throw new \Exception($importedPage->getErrorsString());
+
+$resultOfImporter = $importedPage->getResult();
 
 // вывод результатов
 echo "количество отправленных ключевых фраз: $resultOfImporter->countSended<br>количество найденных дублей: $resultOfImporter->countDuplicated
 <br>количество добавленных ключевых фраз: $resultOfImporter->countAdded<br>количество обновленных ключевых фраз: $resultOfImporter->countChanged";
-
