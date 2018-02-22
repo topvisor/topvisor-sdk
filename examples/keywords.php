@@ -1,4 +1,5 @@
-<?
+<?php
+
 /**
  * Описание работы с ядром.
  * Ссылка на документацию: https://topvisor.ru/api/v2-services/keywords_2/
