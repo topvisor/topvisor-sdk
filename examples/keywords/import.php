@@ -17,6 +17,7 @@ $projectId = 2121417; // id проекта
 
 // создание объекта TV\Pen, установка данных, выполнение запроса
 $importer = new TV\Pen($Session, 'add', 'keywords_2', 'keywords/import');
+$
 $importer->setData(['project_id' => $projectId, 'keywords' => "name;tags;target;group_folder_path;group_name\none;2;hello;Папка;Группа\ntwo;3;hello;Папка;Группа"]);
 $resultOfImporter = $importer->exec()->getResult();
 
