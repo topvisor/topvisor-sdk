@@ -1,6 +1,7 @@
 <?
 /**
- * Описание метода keywords/import для сервиса Ключевые фразы.
+ * Для работы с проектом может потребоваться загрузка большого числа запросов.
+ * В этом случае поможет метод keywords/import. Он добавит в нужную группу в папке ключевые слова, которые Вы укажете.
  * https://dev.topvisor.ru/api/v2-services/keywords_2/keywords/add-import/
  * */
 
@@ -14,10 +15,12 @@ $Session = new TV\Session();
 
 $projectId = 2121417; // id проекта
 
+// создание объекта TV\Pen, установка данных, выполнение запроса
 $importer = new TV\Pen($Session, 'add', 'keywords_2', 'keywords/import');
 $importer->setData(['project_id' => $projectId, 'keywords' => "name;tags;target;group_folder_path;group_name\none;2;hello;Папка;Группа\ntwo;3;hello;Папка;Группа"]);
 $resultOfImporter = $importer->exec()->getResult();
 
-echo "количество отправленных ключевых фраз: {$resultOfImporter->countSended}<br>количество найденных дублей: $resultOfImporter->countDuplicated
+// вывод результатов
+echo "количество отправленных ключевых фраз: $resultOfImporter->countSended<br>количество найденных дублей: $resultOfImporter->countDuplicated
 <br>количество добавленных ключевых фраз: $resultOfImporter->countAdded<br>количество обновленных ключевых фраз: $resultOfImporter->countChanged";
 
