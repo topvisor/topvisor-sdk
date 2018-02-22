@@ -5,19 +5,24 @@
  * Ссылка на документацию: https://topvisor.ru/api/v2-services/keywords_2/
  * */
 
-// локальный путь до topvisorSDK
-include('../src/topvisorSDK.php');
+use Topvisor\TopvisorSDK\V2 as TV;
 
-use TopvisorSDK\V2 as TV;
+// локальный путь до composer (или topvisorSDK)
+include_once('/var/www/include/library/composer_libs/vendor/autoload.php');
 
-// создание сессии
 $Session = new TV\Session();
 
 $projectId = 2121417; // id проекта
 
-$folderAdder = new TV\Pen($Session, 'add', 'keywords_2', 'folders'); // создание запроса
-$folderAdder->setData(['project_id' => $projectId, 'name' => 'new folder']); //
-$pageOfAddedFolder = $folderAdder->exec(); // выполнение запроса
+// добавление папки в проект
+$folderData = [
+	'project_id' => $projectId,
+	'name' => 'new folder'
+];
+
+$folderAdder = new TV\Pen($Session, 'add', 'keywords_2', 'folders');
+$folderAdder->setData($folderData);
+$pageOfAddedFolder = $folderAdder->exec();
 
 // в случае успешного выполнения продолжим операции
 if(!$pageOfAddedFolder->getErrors()){
