@@ -18,17 +18,21 @@ $Session = new TV\Session();
 $projectId = 2121417; // id проекта
 
 // добавление папки
-$foldersAdderData = ['project_id' => $projectId, 'name' => 'new folder']; // генерируем данные
+$foldersAdderData = ['project_id' => $projectId,
+                    'name' => 'new folder']; // генерируем данные
+
 $foldersAdder = new TV\Pen($Session, 'add', 'keywords_2', 'folders'); // создание запроса
-$foldersAdder->setData($foldersAdderDataData); // применение данных
+$foldersAdder->setData($foldersAdderData); // применение данных
 $resultOfAddedFolder = $foldersAdder->exec(); // выполнение запроса
 
 // если возникло исключение -> ошибка
 if($resultOfAddedFolder->getErrors()) throw new \Exception($resultOfAddedFolder->getErrorsString());
 
 // изменим имя папки
-$foldersUpdaterData = ['project_id' => $projectId, 'name' => 'I can rename folder'];
+$foldersUpdaterData = ['project_id' => $projectId,
+                        'name' => 'I can rename folder'];
 $folderFilter = TV\Fields::genFilterData('id', 'EQUALS', [$folderId]);
+
 $folderId = $resultOfAddedFolder->getResult()->id;
 $foldersUpdater = new TV\Pen($Session, 'edit', 'keywords_2', 'folders/rename');
 $foldersUpdater->setData($foldersUpdaterData);
@@ -36,7 +40,9 @@ $foldersUpdater->setFilters([$folderFilter]);
 $foldersUpdater->exec();
 
 // создадим группу в папке
-$groupsAdderData = ['project_id' => $projectId, 'to_id' => $folderId];
+$groupsAdderData = ['project_id' => $projectId,
+                    'to_id' => $folderId];
+
 $groupsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'groups');
 $groupsAdder->setData($groupsAdderData);
 $resultOfAddedGroup = $groupsAdder->exec(); // Тип возвращаемого значения - array
@@ -45,9 +51,11 @@ $resultOfAddedGroup = $groupsAdder->exec(); // Тип возвращаемого
 if($resultOfAddedGroup->getErrors()) throw new \Exception($resultOfAddedGroup->getErrorsString());
 
 // добавим ключевое слово в группу
-$keywordsAdderData = ['project_id' => $projectId, 'name' => 'new keyword', 'to_id' => $groupId];
 $groupId = $resultOfAddedGroup->getResult()[0]->id;
+$keywordsAdderData = ['project_id' => $projectId,
+                        'name' => 'new keyword',
+                        'to_id' => $groupId];
+
 $keywordsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'keywords');
 $keywordsAdder->setData($keywordsAdderData);
 $keywordsAdder->exec();
-

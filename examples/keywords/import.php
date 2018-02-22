@@ -15,9 +15,13 @@ $Session = new TV\Session();
 
 $projectId = 2121417; // id проекта
 
-// создание объекта TV\Pen, установка данных, выполнение запроса
+// Создание объекта TV\Pen, установка данных, выполнение запроса.
+// Вставка будет производиться в группу "Группа", которая находится в папке "Папка".
+// Данная папка лежит в корне. При указании параметра group_folder_path необходимо указать также group_name.
 $CSVFile = "name;tags;target;group_folder_path;group_name\nkeyword1;2;https://your/target;Папка;Группа\nkeyword2;3;https://your/target;Папка;Группа";
-$importerData = ['project_id' => $projectId, 'keywords' => $CSVFile];
+$importerData = ['project_id' => $projectId,
+                'keywords' => $CSVFile];
+
 $importer = new TV\Pen($Session, 'add', 'keywords_2', 'keywords/import');
 $importer->setData($importerData);
 $importedPage = $importer->exec();
