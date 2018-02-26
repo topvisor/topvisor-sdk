@@ -20,9 +20,11 @@ try{
 		'project_id' => $projectId,
 		'group_id' => $groupId,
 	];
+	$keywordsFilters = ['id', 'name'];
 	
 	$keywordsSelector = new TV\Pen($Session, 'get', 'keywords_2', 'keywords');
 	$keywordsSelector->setData($keywordsSelectorData);
+	$keywordsSelector->setFields($keywordsFilters);
 	$pageOfKeywordsSelector = $keywordsSelector->exec();
 	
 	if($pageOfKeywordsSelector->getErrors()) throw new \Exception($pageOfKeywordsSelector->getErrorsString());
@@ -34,11 +36,11 @@ try{
 	}
 	
 	$direction = (rand(0, 1)==0)?'DESC':'ASC';
-	$keywordsOrderData = [TV\Fields::genOrderData('name', $direction)]; // сортировка по ключевой фразе
 	$keywordsSorterData = [
 		'project_id' => $projectId,
 		'group_id' => $groupId,
 	];
+	$keywordsOrderData = [TV\Fields::genOrderData('name', $direction)]; // сортировка по ключевой фразе
 	
 	$keywordsSorter = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/sort');
 	$keywordsSorter->setData($keywordsSorterData);

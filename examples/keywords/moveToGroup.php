@@ -32,11 +32,11 @@ try{
 	$addedGroup = $resultOfGroupsAdder[0];
 	echo "Группа \"$addedGroup->name\" создана.<br>\n";
 	
-	$keywordsMoverFilterData = [TV\Fields::genFilterData('name', 'STARTS_WITH', ['а'])];
 	$keywordsMoverData = [
 		'project_id' => $projectId,
 		'to_id' => $addedGroup->id,
 	];
+	$keywordsMoverFilterData = [TV\Fields::genFilterData('name', 'STARTS_WITH', ['а'])];
 	
 	$keywordsMover = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/move');
 	$keywordsMover->setData($keywordsMoverData);
