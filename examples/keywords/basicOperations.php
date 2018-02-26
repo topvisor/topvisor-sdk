@@ -64,16 +64,14 @@ try{
 	if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
 	
 	$resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // тип возвращаемого значения - array
-	$addedGroup = $resultOfGroupsAdder[0]; // т.к. добавили одну папку, она находится на 0 месте в массиве resultOfGroupsAdder[]
-	$groupId = $addedGroup->id;
-	$groupName = $addedGroup->name;
-	echo "В папку id$folderId добавлена группа id$groupId с именем \"$groupName\".<br>\n";
+	$addedGroup = $resultOfGroupsAdder[0];
+	echo "В папку id$folderId добавлена группа id$addedGroup->id с именем \"$addedGroup->name\".<br>\n";
 	
 	// добавим ключевое слово в группу
 	$keywordsAdderData = [
 		'project_id' => $projectId,
 		'name' => 'My first added keyword',
-		'to_id' => $groupId,
+		'to_id' => $addedGroup->id,
 	];
 	
 	$keywordsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'keywords');

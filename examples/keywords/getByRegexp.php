@@ -33,7 +33,6 @@ try{
 	
 	$SelectedKeywords = $pageOfKeywordsSelector->getResult();
 	
-	echo "<b>Выбранные фразы:</b><br>\n";
 	echo "<b>id</b>;<b>name</b>;<b>group_name</b><br>\n";
 	foreach($SelectedKeywords as $keyword){
 		echo "id$keyword->id;\"$keyword->name\";\"$keyword->group_name\"<br>\n";
