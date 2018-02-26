@@ -26,7 +26,6 @@ $foldersAdder = new TV\Pen($Session, 'add', 'keywords_2', 'folders');
 $foldersAdder->setData($foldersAdderData);
 $pageOfFoldersAdder = $foldersAdder->exec();
 
-// если возникло исключение -> ошибка
 if($pageOfFoldersAdder->getErrors()) throw new \Exception($pageOfFoldersAdder->getErrorsString());
 
 $resultOfFoldersAdder = $pageOfFoldersAdder->getResult();
@@ -48,7 +47,7 @@ $resultOfFoldersUpdater = $foldersUpdater->exec();
 if($resultOfFoldersUpdater->getErrors()) throw new \Exception($resultOfFoldersUpdater->getErrorsString());
 
 $newFolderName = $foldersUpdaterData['name'];
-echo "Имя папки {$folderId} изменено на {$newFolderName}.<br>\n";
+echo "Имя папки $folderId изменено на $newFolderName.<br>\n";
 
 // создадим группу в папке
 $groupsAdderData = [
@@ -60,16 +59,14 @@ $groupsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'groups');
 $groupsAdder->setData($groupsAdderData);
 $pageOfGroupsAdder = $groupsAdder->exec(); // Тип возвращаемого значения - array
 
-// если возникло исключение -> ошибка
 if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
 
-$resultOfGroupsAdder = $pageOfGroupsAdder->getResult()[0];
-$groupId = $resultOfGroupsAdder->id;
-$groupName = $resultOfGroupsAdder->name;
+$resultOfGroupsAdder = $pageOfGroupsAdder->getResult();
+$groupId = $resultOfGroupsAdder[0]->id;
+$groupName = $resultOfGroupsAdder[0]->name;
 echo "В папку $folderId добавлена группа $groupId с именем $groupName.<br>\n";
 
 // добавим ключевое слово в группу
-
 $keywordsAdderData = [
     'project_id' => $projectId,
     'name' => 'new keyword',
