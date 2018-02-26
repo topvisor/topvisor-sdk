@@ -1,13 +1,13 @@
 <?
 
-use Topvisor\TopvisorSDK\V2 as TV;
-
 /**
  * Сервис Ключевые фразы создан для удобства работы с папками, группами и ключевыми словами.
  * В данном примере производится добавление новой папки, изменение её имени,
  * новой группы и добавление туда ключевых слов.
  * https://topvisor.ru/api/v2-services/keywords_2/
  * */
+
+use Topvisor\TopvisorSDK\V2 as TV;
 
 include_once('/var/www/include/library/composer_libs/vendor/autoload.php');
 
@@ -28,6 +28,7 @@ $pageOfFoldersAdder = $foldersAdder->exec();
 
 // если возникло исключение -> ошибка
 if($pageOfFoldersAdder->getErrors()) throw new \Exception($pageOfFoldersAdder->getErrorsString());
+
 echo "Добавлена папка с id: {$pageOfFoldersAdder->getResult()->id}.<br>";
 
 // изменим имя папки
@@ -43,7 +44,9 @@ $foldersUpdater->setData($foldersUpdaterData);
 $resultOfFoldersUpdater = $foldersUpdater->exec();
 
 if($resultOfFoldersUpdater->getErrors()) throw new \Exception($resultOfFoldersUpdater->getErrorsString());
-echo 'Имя папки изменено.<br>';
+
+$newFolderName = $foldersUpdaterData['name'];
+echo "Имя папки {$folderId} изменено на {$newFolderName}.<br>\n";
 
 // создадим группу в папке
 $groupsAdderData = [
@@ -57,10 +60,13 @@ $pageOfGroupsAdder = $groupsAdder->exec(); // Тип возвращаемого 
 
 // если возникло исключение -> ошибка
 if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
-echo "Добавлена группа с id: {$pageOfGroupsAdder->getResult()[0]->id}.<br>";
+
+$groupId = $pageOfGroupsAdder->getResult()[0]->id;
+$groupName = $pageOfGroupsAdder->getResult()[0]->name;
+echo "В папку $folderId добавлена группа $groupId с именем $groupName.<br>\n";
 
 // добавим ключевое слово в группу
-$groupId = $pageOfGroupsAdder->getResult()[0]->id;
+
 $keywordsAdderData = [
     'project_id' => $projectId,
     'name' => 'new keyword',
@@ -74,4 +80,4 @@ $pageOfKeywordsAdder = $keywordsAdder->exec();
 if($pageOfKeywordsAdder->getErrors()) throw new \Exception($pageOfKeywordsAdder->getErrorsString());
 
 $nameOfAddedKeyword = $pageOfKeywordsAdder->getResult()->name;
-echo "В группу добавлено ключевое слово: $nameOfAddedKeyword.";
+echo "В группу $groupId добавлено ключевое слово $nameOfAddedKeyword.";
