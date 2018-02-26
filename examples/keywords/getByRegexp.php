@@ -16,16 +16,17 @@ $Session = new TV\Session();
 $projectId = 2121417; // введите id своего проекта
 
 try{
-	$keywordsSelectorFilterData = [
+	$keywordsSelectorFields = ['id', 'name', 'group_name'];
+	$keywordsSelectorFilter = [
 		TV\Fields::genFilterData('name', 'REGEXP', ['^фмл']),
 	];
 	$keywordsSelectorData = ['project_id' => $projectId];
-	$fields = ['id', 'name', 'group_name'];
 	
 	$keywordsSelector = new TV\Pen($Session, 'get', 'keywords_2', 'keywords');
-	$keywordsSelector->setFields($fields);
+	$keywordsSelector->setFields($keywordsSelectorFields);
+	$keywordsSelector->setFilters($keywordsSelectorFilter);
 	$keywordsSelector->setData($keywordsSelectorData);
-	$keywordsSelector->setFilters($keywordsSelectorFilterData);
+	
 	$pageOfKeywordsSelector = $keywordsSelector->exec();
 	
 	if($pageOfKeywordsSelector->getErrors()) throw new \Exception($pageOfKeywordsSelector->getErrorsString());
