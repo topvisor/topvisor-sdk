@@ -25,4 +25,3 @@ $pageOfSorter = $sorter->exec();
 if($pageOfSorter->getErrors()) throw new \Exception($pageOfSorter->getErrorsString());
 
 echo 'Cортировка выполнена успешно!';
-
