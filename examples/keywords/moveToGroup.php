@@ -24,12 +24,12 @@ try{
 
     $groupsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'groups');
     $groupsAdder->setData($groupsAdderData);
-    $pageOfGroupsAdder = $groupsAdder->exec(); // Тип возвращаемого значения - array
+    $pageOfGroupsAdder = $groupsAdder->exec();
 
     if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
 
-    $resultOfGroupsAdder = $pageOfGroupsAdder->getResult();
-    $groupName = $resultOfGroupsAdder[0]->name;
+    $resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // Тип возвращаемого значения - array
+    $groupName = $resultOfGroupsAdder[0]->name; // т.к. добавили одну папку, она находится на 0 месте в массиве resultOfGroupsAdder[]
     echo "Группа \"$groupName\" создана.<br>\n";
 
     $groupId = $resultOfGroupsAdder[0]->id;
@@ -44,7 +44,7 @@ try{
     $keywordsMover->setFilters($keywordsMoverFilterData);
     $pageOfKeywordsMover = $keywordsMover->exec();
 
-    if($pageOfKeywordsMover->getErrors()) throw new \Exception($pageOfMover->getErrorsString());
+    if($pageOfKeywordsMover->getErrors()) throw new \Exception($pageOfKeywordsMover->getErrorsString());
 
     $resultOfKeywordsMover = $pageOfKeywordsMover->getResult();
     echo "Перемещено $resultOfKeywordsMover ключевых слов.";

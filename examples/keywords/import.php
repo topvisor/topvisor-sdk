@@ -17,7 +17,7 @@ $projectId = 2121417; // введите id своего проекта
 
 try{
     // данные для вставки должны быть в .csv формате
-    $CSVFile = file_get_contents(__DIR__.'/yourCSVFile.csv');
+    $CSVFile = file_get_contents(__DIR__.'/import.csv');
     $keywordsImporterData = [
         'project_id' => $projectId,
         'keywords' => $CSVFile
