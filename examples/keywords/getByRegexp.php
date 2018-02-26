@@ -23,9 +23,9 @@ try{
 	$fields = ['id', 'name', 'group_name'];
 	
 	$keywordsSelector = new TV\Pen($Session, 'get', 'keywords_2', 'keywords');
+	$keywordsSelector->setFields($fields);
 	$keywordsSelector->setData($keywordsSelectorData);
 	$keywordsSelector->setFilters($keywordsSelectorFilterData);
-	$keywordsSelector->setFields($fields);
 	$pageOfKeywordsSelector = $keywordsSelector->exec();
 	
 	if($pageOfKeywordsSelector->getErrors()) throw new \Exception($pageOfKeywordsSelector->getErrorsString());
