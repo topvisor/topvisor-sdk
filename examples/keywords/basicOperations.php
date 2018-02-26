@@ -19,7 +19,8 @@ $projectId = 2121417; // введите id своего проекта
 try{
 	// добавление папки
 	$foldersAdderData = [
-		'project_id' => $projectId, 'name' => 'My first folder',
+		'project_id' => $projectId,
+		'name' => 'My first folder',
 	];
 	
 	$foldersAdder = new TV\Pen($Session, 'add', 'keywords_2', 'folders');
@@ -35,7 +36,9 @@ try{
 	
 	// изменим имя папки
 	$foldersUpdaterData = [
-		'project_id' => $projectId, 'name' => 'My first renamed folder', 'id' => $folderId,
+		'project_id' => $projectId,
+		'name' => 'My first renamed folder',
+		'id' => $folderId,
 	];
 	
 	$foldersUpdater = new TV\Pen($Session, 'edit', 'keywords_2', 'folders/rename');
