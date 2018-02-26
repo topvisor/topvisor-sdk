@@ -13,18 +13,49 @@ include(__DIR__.'/../../autoload.php');
 $Session = new TV\Session();
 
 $projectId = 2121417; // введите id своего проекта
+
 try{
+    // выведем содержимое группы "Школа"
+    $groupName = 'Школа'; // введите имя своей группы
+    $groupFilter = [TV\Fields::genFilterData('group_name', 'EQUALS', [$groupName])];
+    $keywordsSelectorData = ['project_id' => $projectId];
+
+    $keywordsSelector = new TV\Pen($Session, 'get', 'keywords_2', 'keywords');
+    $keywordsSelector->setData($keywordsSelectorData);
+    $keywordsSelector->setFilters($groupFilter);
+    $pageOfKeywordsSelector = $keywordsSelector->exec();
+
+    if($pageOfKeywordsSelector->getErrors()) throw new \Exception($pageOfKeywordsSelector->getErrorsString());
+
+    $selectedKeywords = $pageOfKeywordsSelector->getResult();
+    echo "<b>Содержимое группы \"Школа\" до сортировки:</b><br>\n";
+    foreach ($selectedKeywords as $keyword) {
+        echo "$keyword->name<br>\n";
+    }
+
     $keywordsOrderData = [TV\Fields::genOrderData('name', 'DESC')]; // сортировка по ключевой фразе в обратном алфавитном порядке
     $keywordsSorterData = ['project_id' => $projectId];
 
     $keywordsSorter = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/sort');
     $keywordsSorter->setData($keywordsSorterData);
     $keywordsSorter->serOrders($keywordsOrderData);
+    $keywordsSorter->setFilters($groupFilter);
     $pageOfKeywordsSorter = $keywordsSorter->exec();
 
     if($pageOfKeywordsSorter->getErrors()) throw new \Exception($pageOfKeywordsSorter->getErrorsString());
 
-    echo 'Cортировка выполнена успешно!';
+    echo "<b>Cортировка группы \"$groupName\" выполнена успешно!</b><br>\n";
+
+    $pageOfKeywordsSelector = $keywordsSelector->exec();
+
+    if($pageOfKeywordsSelector->getErrors()) throw new \Exception($pageOfKeywordsSelector->getErrorsString());
+
+    $selectedKeywords = $pageOfKeywordsSelector->getResult();
+
+    echo "<b>Содержимое группы \"Школа\" после сортировки:</b><br>\n";
+    foreach ($selectedKeywords as $keyword) {
+        echo "$keyword->name<br>\n";
+    }
 }catch(Exception $e){
     echo $e->getMessage();
 }

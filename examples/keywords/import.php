@@ -27,7 +27,6 @@ try{
     $keywordsImporter->setData($keywordsImporterData);
     $pageOfKeywordsImporter = $keywordsImporter->exec();
 
-    // если возникло исключение -> ошибка
     if($pageOfKeywordsImporter->getErrors()) throw new \Exception($pageOfKeywordsImporter->getErrorsString());
 
     $resultOfKeywordsImporter = $pageOfKeywordsImporter->getResult();

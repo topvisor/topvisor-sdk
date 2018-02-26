@@ -29,9 +29,9 @@ try{
 
     if($pageOfFoldersAdder->getErrors()) throw new \Exception($pageOfFoldersAdder->getErrorsString());
 
-    $resultOfFoldersAdder = $pageOfFoldersAdder->getResult();
-    $folderId = $resultOfFoldersAdder->id;
-    $folderName = $resultOfFoldersAdder->name;
+    $addedFolder = $pageOfFoldersAdder->getResult();
+    $folderId = $addedFolder->id;
+    $folderName = $addedFolder->name;
     echo "Добавлена папка id$folderId с именем \"$folderName\".<br>";
 
     // изменим имя папки
@@ -43,9 +43,9 @@ try{
 
     $foldersUpdater = new TV\Pen($Session, 'edit', 'keywords_2', 'folders/rename');
     $foldersUpdater->setData($foldersUpdaterData);
-    $resultOfFoldersUpdater = $foldersUpdater->exec();
+    $pageOfFoldersUpdater = $foldersUpdater->exec();
 
-    if($resultOfFoldersUpdater->getErrors()) throw new \Exception($resultOfFoldersUpdater->getErrorsString());
+    if($pageOfFoldersUpdater->getErrors()) throw new \Exception($pageOfFoldersUpdater->getErrorsString());
 
     $newFolderName = $foldersUpdaterData['name'];
     echo "Имя папки id$folderId изменено на \"$newFolderName\".<br>\n";
@@ -63,9 +63,10 @@ try{
 
     if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
 
-    $resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // Тип возвращаемого значения - array
-    $groupId = $resultOfGroupsAdder[0]->id;
-    $groupName = $resultOfGroupsAdder[0]->name;
+    $resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // тип возвращаемого значения - array
+    $addedGroup = $resultOfGroupsAdder[0]; // т.к. добавили одну папку, она находится на 0 месте в массиве resultOfGroupsAdder[]
+    $groupId = $addedGroup->id;
+    $groupName = $addedGroup->name;
     echo "В папку id$folderId добавлена группа id$groupId с именем \"$groupName\".<br>\n";
 
     // добавим ключевое слово в группу
@@ -81,8 +82,8 @@ try{
 
     if($pageOfKeywordsAdder->getErrors()) throw new \Exception($pageOfKeywordsAdder->getErrorsString());
 
-    $resultOfKeywordsAdder = $pageOfKeywordsAdder->getResult();
-    $nameOfAddedKeyword = $resultOfKeywordsAdder->name;
+    $addedKeyword = $pageOfKeywordsAdder->getResult();
+    $nameOfAddedKeyword = $addedKeyword->name;
     echo "В группу id$groupId добавлено ключевое слово \"$nameOfAddedKeyword\".";
 }catch(Exception $e){
     echo $e->getMessage();

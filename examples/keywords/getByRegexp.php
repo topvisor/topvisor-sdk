@@ -28,11 +28,11 @@ try{
 
     if($pageOfKeywordsSelector->getErrors()) throw new \Exception($pageOfKeywordsSelector->getErrorsString());
 
-    $resultOfKeywordsSelector = $pageOfKeywordsSelector->getResult();
+    $SelectedKeywords = $pageOfKeywordsSelector->getResult();
 
     echo "<b>Выбранные фразы:</b><br>\n";
-    foreach($resultOfKeywordsSelector as $res){
-        echo "\"$res->name\"<br>\n";
+    foreach($SelectedKeywords as $keyword){
+        echo "\"$keyword->name\"<br>\n";
     }
 }catch(Exception $e){
     echo $e->getMessage();
