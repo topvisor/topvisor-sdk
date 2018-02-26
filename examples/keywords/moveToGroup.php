@@ -16,25 +16,45 @@ $Session = new TV\Session();
 $projectId = 2121417; // введите id своего проекта
 
 try{
-	// создание группы А
-	$groupsAdderData = [
+	$groupsData = [
 		'project_id' => $projectId,
 		'name' => ['A'],
 	];
+	$groupsSelectorFields = ['name', 'id', 'project_id'];
+	$groupsSelectorFilters = [
+		TV\Fields::genFilterData('name', 'EQUALS', ['A']),
+	];
 	
-	$groupsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'groups');
-	$groupsAdder->setData($groupsAdderData);
-	$pageOfGroupsAdder = $groupsAdder->exec();
+	$groupsSelector = new TV\Pen($Session, 'get', 'keywords_2', 'groups');
+	$groupsSelector->setData($groupsData);
+	$groupsSelector->setFields($groupsSelectorFields);
+	$groupsSelector->setFilters($groupsSelectorFilters);
+	$pageOfGroupsSelector = $groupsSelector->exec();
 	
-	if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
+	if($pageOfGroupsSelector->getErrors()) throw new \Exception($pageOfGroupsSelector->getErrorsString());
+
+	$resultOfGroupsSelector = $pageOfGroupsSelector->getResult();
 	
-	$resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // Тип возвращаемого значения - array
-	$addedGroup = $resultOfGroupsAdder[0];
-	echo "Группа \"$addedGroup->name\" создана.<br>\n";
+	// если не нашлось группы с именем А, создадим её
+	if(!count($resultOfGroupsSelector)){
+		$groupsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'groups');
+		$groupsAdder->setData($groupsData);
+		$pageOfGroupsAdder = $groupsAdder->exec();
+		
+		if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
+		
+		$resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // тип возвращаемого значения - array
+		$addedGroup = $resultOfGroupsAdder[0];
+		echo "Группа $addedGroup->id создана.<br>\n";
+		$group = $addedGroup;
+	}else{
+		$group = $resultOfGroupsSelector[0];
+		echo "Группа id$group->id с именем 'A' уже существовала<br>\n";
+	}
 	
 	$keywordsMoverData = [
 		'project_id' => $projectId,
-		'to_id' => $addedGroup->id,
+		'to_id' => $group->id,
 	];
 	$keywordsMoverFilterData = [TV\Fields::genFilterData('name', 'STARTS_WITH', ['а'])];
 	

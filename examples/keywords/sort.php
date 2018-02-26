@@ -35,7 +35,7 @@ try{
 		echo "$keyword->id $keyword->name<br>\n";
 	}
 	
-	$direction = (rand(0, 1)==0)?'DESC':'ASC';
+	$direction = (rand(0, 1))?'DESC':'ASC';
 	$keywordsSorterData = [
 		'project_id' => $projectId,
 		'group_id' => $groupId,
@@ -49,9 +49,9 @@ try{
 	
 	if($pageOfKeywordsSorter->getErrors()) throw new \Exception($pageOfKeywordsSorter->getErrorsString());
 	
-	$direction = ($keywordsOrderData[0]['direction'] == 'ASC')?'по возрастанию':'по убыванию';
+	$descText = ($direction == 'DESC')?'обратном':'';
 	echo "<br>\n";
-	echo "<b>Cортировка группы id$groupId $direction выполнена успешно!</b><br><br>\n\n";
+	echo "<b>Сортировка ключевых фраз в $descText алфавитном порядке в группе id$groupId</b><br><br>\n\n";
 	
 	$pageOfKeywordsSelector = $keywordsSelector->exec();
 	
