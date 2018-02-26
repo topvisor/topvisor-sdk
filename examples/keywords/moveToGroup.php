@@ -16,38 +16,38 @@ $Session = new TV\Session();
 $projectId = 2121417; // введите id своего проекта
 
 try{
-    // создание группы А
-    $groupsAdderData = [
-        'project_id' => $projectId,
-        'name' => ['A']
-    ];
-
-    $groupsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'groups');
-    $groupsAdder->setData($groupsAdderData);
-    $pageOfGroupsAdder = $groupsAdder->exec();
-
-    if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
-
-    $resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // Тип возвращаемого значения - array
-    $groupName = $resultOfGroupsAdder[0]->name; // т.к. добавили одну папку, она находится на 0 месте в массиве resultOfGroupsAdder[]
-    echo "Группа \"$groupName\" создана.<br>\n";
-
-    $groupId = $resultOfGroupsAdder[0]->id;
-    $keywordsMoverFilterData = [TV\Fields::genFilterData('name', 'STARTS_WITH', ['а'])];
-    $keywordsMoverData = [
-        'project_id' => $projectId,
-        'to_id' => $groupId
-    ];
-
-    $keywordsMover = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/move');
-    $keywordsMover->setData($keywordsMoverData);
-    $keywordsMover->setFilters($keywordsMoverFilterData);
-    $pageOfKeywordsMover = $keywordsMover->exec();
-
-    if($pageOfKeywordsMover->getErrors()) throw new \Exception($pageOfKeywordsMover->getErrorsString());
-
-    $resultOfKeywordsMover = $pageOfKeywordsMover->getResult();
-    echo "Перемещено $resultOfKeywordsMover ключевых слов.";
+	// создание группы А
+	$groupsAdderData = [
+		'project_id' => $projectId,
+		'name' => ['A'],
+	];
+	
+	$groupsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'groups');
+	$groupsAdder->setData($groupsAdderData);
+	$pageOfGroupsAdder = $groupsAdder->exec();
+	
+	if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
+	
+	$resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // Тип возвращаемого значения - array
+	$groupName = $resultOfGroupsAdder[0]->name; // т.к. добавили одну папку, она находится на 0 месте в массиве resultOfGroupsAdder[]
+	echo "Группа \"$groupName\" создана.<br>\n";
+	
+	$groupId = $resultOfGroupsAdder[0]->id;
+	$keywordsMoverFilterData = [TV\Fields::genFilterData('name', 'STARTS_WITH', ['а'])];
+	$keywordsMoverData = [
+		'project_id' => $projectId,
+		'to_id' => $groupId,
+	];
+	
+	$keywordsMover = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/move');
+	$keywordsMover->setData($keywordsMoverData);
+	$keywordsMover->setFilters($keywordsMoverFilterData);
+	$pageOfKeywordsMover = $keywordsMover->exec();
+	
+	if($pageOfKeywordsMover->getErrors()) throw new \Exception($pageOfKeywordsMover->getErrorsString());
+	
+	$resultOfKeywordsMover = $pageOfKeywordsMover->getResult();
+	echo "Перемещено $resultOfKeywordsMover ключевых слов.";
 }catch(Exception $e){
-    echo $e->getMessage();
+	echo $e->getMessage();
 }
