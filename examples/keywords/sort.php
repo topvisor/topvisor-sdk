@@ -34,7 +34,7 @@ try{
 	}
 	
 	$direction = (rand(0, 1)==0)?'DESC':'ASC';
-	$keywordsOrderData = [TV\Fields::genOrderData('name', $direction)]; // сортировка по ключевой фразе в обратном алфавитном порядке
+	$keywordsOrderData = [TV\Fields::genOrderData('name', $direction)]; // сортировка по ключевой фразе
 	$keywordsSorterData = [
 		'project_id' => $projectId,
 		'group_id' => $groupId,

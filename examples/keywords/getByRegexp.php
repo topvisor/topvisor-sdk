@@ -20,10 +20,12 @@ try{
 		TV\Fields::genFilterData('name', 'REGEXP', ['^фмл']),
 	];
 	$keywordsSelectorData = ['project_id' => $projectId];
+	$fields = ['id', 'name', 'group_name'];
 	
 	$keywordsSelector = new TV\Pen($Session, 'get', 'keywords_2', 'keywords');
 	$keywordsSelector->setData($keywordsSelectorData);
 	$keywordsSelector->setFilters($keywordsSelectorFilterData);
+	$keywordsSelector->setFields($fields);
 	$pageOfKeywordsSelector = $keywordsSelector->exec();
 	
 	if($pageOfKeywordsSelector->getErrors()) throw new \Exception($pageOfKeywordsSelector->getErrorsString());
@@ -32,7 +34,7 @@ try{
 	
 	echo "<b>Выбранные фразы:</b><br>\n";
 	foreach($SelectedKeywords as $keyword){
-		echo "id$keyword->id \"$keyword->name\" <br>\n";
+		echo "id$keyword->id \"$keyword->name\" из группы \"$keyword->group_name\" <br>\n";
 	}
 }catch(Exception $e){
 	echo $e->getMessage();
