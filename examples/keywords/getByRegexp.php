@@ -32,7 +32,7 @@ try{
 	
 	echo "<b>Выбранные фразы:</b><br>\n";
 	foreach($SelectedKeywords as $keyword){
-		echo "\"$keyword->name\"<br>\n";
+		echo "id$keyword->id \"$keyword->name\" <br>\n";
 	}
 }catch(Exception $e){
 	echo $e->getMessage();

@@ -33,7 +33,8 @@ try{
 		echo "$keyword->id $keyword->name<br>\n";
 	}
 	
-	$keywordsOrderData = [TV\Fields::genOrderData('name', 'DESC')]; // сортировка по ключевой фразе в обратном алфавитном порядке
+	$direction = (rand(0, 1)==0)?'DESC':'ASC';
+	$keywordsOrderData = [TV\Fields::genOrderData('name', $direction)]; // сортировка по ключевой фразе в обратном алфавитном порядке
 	$keywordsSorterData = [
 		'project_id' => $projectId,
 		'group_id' => $groupId,
@@ -47,7 +48,7 @@ try{
 	if($pageOfKeywordsSorter->getErrors()) throw new \Exception($pageOfKeywordsSorter->getErrorsString());
 	
 	$direction = ($keywordsOrderData[0]['direction'] == 'ASC')?'по возрастанию':'по убыванию';
-	echo "<b>Cортировка группы id$groupId $direction выполнена успешно!</b><br>\n";
+	echo "<br>\n<b>Cортировка группы id$groupId $direction выполнена успешно!</b><br><br>\n\n";
 	
 	$pageOfKeywordsSelector = $keywordsSelector->exec();
 	
@@ -57,7 +58,7 @@ try{
 	
 	echo "<b>Содержимое группы id$groupId после сортировки:</b><br>\n";
 	foreach($selectedKeywords as $keyword){
-		echo "$$keyword->id $keyword->name<br>\n";
+		echo "$keyword->id $keyword->name<br>\n";
 	}
 }catch(Exception $e){
 	echo $e->getMessage();
