@@ -29,10 +29,12 @@ $pageOfFoldersAdder = $foldersAdder->exec();
 // если возникло исключение -> ошибка
 if($pageOfFoldersAdder->getErrors()) throw new \Exception($pageOfFoldersAdder->getErrorsString());
 
-echo "Добавлена папка с id: {$pageOfFoldersAdder->getResult()->id}.<br>";
+$resultOfFoldersAdder = $pageOfFoldersAdder->getResult();
+$folderId = $resultOfFoldersAdder->id;
+$folderName = $resultOfFoldersAdder->name;
+echo "Добавлена папка $folderId с именем $folderName.<br>";
 
 // изменим имя папки
-$folderId = $pageOfFoldersAdder->getResult()->id;
 $foldersUpdaterData = [
     'project_id' => $projectId,
     'name' => 'I can rename folder',
@@ -61,8 +63,9 @@ $pageOfGroupsAdder = $groupsAdder->exec(); // Тип возвращаемого 
 // если возникло исключение -> ошибка
 if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
 
-$groupId = $pageOfGroupsAdder->getResult()[0]->id;
-$groupName = $pageOfGroupsAdder->getResult()[0]->name;
+$resultOfGroupsAdder = $pageOfGroupsAdder->getResult()[0];
+$groupId = $resultOfGroupsAdder->id;
+$groupName = $resultOfGroupsAdder->name;
 echo "В папку $folderId добавлена группа $groupId с именем $groupName.<br>\n";
 
 // добавим ключевое слово в группу
@@ -79,5 +82,6 @@ $pageOfKeywordsAdder = $keywordsAdder->exec();
 
 if($pageOfKeywordsAdder->getErrors()) throw new \Exception($pageOfKeywordsAdder->getErrorsString());
 
-$nameOfAddedKeyword = $pageOfKeywordsAdder->getResult()->name;
+$resultOfKeywordsAdder = $pageOfKeywordsAdder->getResult();
+$nameOfAddedKeyword = $resultOfKeywordsAdder->name;
 echo "В группу $groupId добавлено ключевое слово $nameOfAddedKeyword.";
