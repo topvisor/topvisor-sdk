@@ -1,7 +1,8 @@
 <?
+
 /**
  * Для работы с проектом может потребоваться загрузка большого числа запросов.
- * В этом случае поможет метод keywords/import. Он добавит в нужную группу в папке ключевые слова, которые Вы укажете.
+ * В этом случае поможет метод keywords/import. Он добавит в нужную группу в папке ключевые слова из указаного файла.
  * https://dev.topvisor.ru/api/v2-services/keywords_2/keywords/add-import/
  * */
 
@@ -15,22 +16,26 @@ $Session = new TV\Session();
 
 $projectId = 2121417; // id проекта
 
-// Создание объекта TV\Pen, установка данных, выполнение запроса.
-// Вставка будет производиться в группу "Группа", которая находится в папке "Папка".
-// Данная папка лежит в корне. При указании параметра group_folder_path необходимо указать также group_name.
-$CSVFile = "name;tags;target;group_folder_path;group_name\nkeyword1;2;https://your/target;Папка;Группа\nkeyword2;3;https://your/target;Папка;Группа";
-$importerData = ['project_id' => $projectId,
-                'keywords' => $CSVFile];
+// данные для вставки должны быть в .csv формате
+$CSVFile = file_get_contents('yourCSVFile.csv');
+$importerData = [
+    'project_id' => $projectId,
+    'keywords' => $CSVFile
+];
 
 $importer = new TV\Pen($Session, 'add', 'keywords_2', 'keywords/import');
 $importer->setData($importerData);
-$importedPage = $importer->exec();
+$pageOfImporter = $importer->exec();
 
 // если возникло исключение -> ошибка
-if($importedPage->getErrors()) throw new \Exception($importedPage->getErrorsString());
+if($pageOfImporter->getErrors()) throw new \Exception($pageOfImporter->getErrorsString());
 
-$resultOfImporter = $importedPage->getResult();
+$resultOfImporter = $pageOfImporter->getResult();
 
 // вывод результатов
-echo "количество отправленных ключевых фраз: $resultOfImporter->countSended<br>количество найденных дублей: $resultOfImporter->countDuplicated
-<br>количество добавленных ключевых фраз: $resultOfImporter->countAdded<br>количество обновленных ключевых фраз: $resultOfImporter->countChanged";
+echo "
+    Количество отправленных ключевых фраз: $resultOfImporter->countSended.<br>
+    Количество найденных дублей: $resultOfImporter->countDuplicated.<br>
+    Количество добавленных ключевых фраз: $resultOfImporter->countAdded.<br>
+    Количество обновленных ключевых фраз: $resultOfImporter->countChanged.
+";
