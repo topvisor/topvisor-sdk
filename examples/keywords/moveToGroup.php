@@ -30,24 +30,24 @@ try{
 
     $resultOfGroupsAdder = $pageOfGroupsAdder->getResult();
     $groupName = $resultOfGroupsAdder[0]->name;
-    echo "Группа $groupName создана.<br>\n";
+    echo "Группа \"$groupName\" создана.<br>\n";
 
     $groupId = $resultOfGroupsAdder[0]->id;
-    $moverFilterData = [TV\Fields::genFilterData('name', 'STARTS_WITH', ['а'])];
-    $moverData = [
+    $keywordsMoverFilterData = [TV\Fields::genFilterData('name', 'STARTS_WITH', ['а'])];
+    $keywordsMoverData = [
         'project_id' => $projectId,
         'to_id' => $groupId
     ];
 
-    $mover = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/move');
-    $mover->setData($moverData);
-    $mover->setFilters($moverFilterData);
-    $pageOfMover = $mover->exec();
+    $keywordsMover = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/move');
+    $keywordsMover->setData($keywordsMoverData);
+    $keywordsMover->setFilters($keywordsMoverFilterData);
+    $pageOfKeywordsMover = $keywordsMover->exec();
 
-    if($pageOfMover->getErrors()) throw new \Exception($pageOfMover->getErrorsString());
+    if($pageOfKeywordsMover->getErrors()) throw new \Exception($pageOfMover->getErrorsString());
 
-    $resultOfMover = $pageOfMover->getResult();
-    echo "Перемещено $resultOfMover ключевых слов.";
+    $resultOfKeywordsMover = $pageOfKeywordsMover->getResult();
+    echo "Перемещено $resultOfKeywordsMover ключевых слов.";
 }catch(Exception $e){
     echo $e->getMessage();
 }

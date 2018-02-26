@@ -3,7 +3,7 @@
 /**
  * Сервис Ключевые фразы создан для удобства работы с папками, группами и ключевыми словами.
  * В данном примере производится добавление новой папки, изменение её имени,
- * новой группы и добавление туда ключевых слов.
+ * новой группы и добавление туда ключевой фразы.
  * https://topvisor.ru/api/v2-services/keywords_2/
  * */
 
@@ -20,7 +20,7 @@ try{
     // добавление папки
     $foldersAdderData = [
         'project_id' => $projectId,
-        'name' => 'new folder'
+        'name' => 'My first folder'
     ];
 
     $foldersAdder = new TV\Pen($Session, 'add', 'keywords_2', 'folders');
@@ -32,12 +32,12 @@ try{
     $resultOfFoldersAdder = $pageOfFoldersAdder->getResult();
     $folderId = $resultOfFoldersAdder->id;
     $folderName = $resultOfFoldersAdder->name;
-    echo "Добавлена папка id$folderId с именем $folderName.<br>";
+    echo "Добавлена папка id$folderId с именем \"$folderName\".<br>";
 
     // изменим имя папки
     $foldersUpdaterData = [
         'project_id' => $projectId,
-        'name' => 'New folder',
+        'name' => 'My first renamed folder',
         'id' => $folderId
     ];
 
@@ -48,29 +48,30 @@ try{
     if($resultOfFoldersUpdater->getErrors()) throw new \Exception($resultOfFoldersUpdater->getErrorsString());
 
     $newFolderName = $foldersUpdaterData['name'];
-    echo "Имя папки id$folderId изменено на $newFolderName.<br>\n";
+    echo "Имя папки id$folderId изменено на \"$newFolderName\".<br>\n";
 
     // создадим группу в папке
     $groupsAdderData = [
         'project_id' => $projectId,
-        'to_id' => $folderId
+        'to_id' => $folderId,
+        'name' => "My first group"
     ];
 
     $groupsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'groups');
     $groupsAdder->setData($groupsAdderData);
-    $pageOfGroupsAdder = $groupsAdder->exec(); // Тип возвращаемого значения - array
+    $pageOfGroupsAdder = $groupsAdder->exec();
 
     if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
 
-    $resultOfGroupsAdder = $pageOfGroupsAdder->getResult();
+    $resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // Тип возвращаемого значения - array
     $groupId = $resultOfGroupsAdder[0]->id;
     $groupName = $resultOfGroupsAdder[0]->name;
-    echo "В папку id$folderId добавлена группа id$groupId с именем $groupName.<br>\n";
+    echo "В папку id$folderId добавлена группа id$groupId с именем \"$groupName\".<br>\n";
 
     // добавим ключевое слово в группу
     $keywordsAdderData = [
         'project_id' => $projectId,
-        'name' => 'new keyword',
+        'name' => 'My first added keyword',
         'to_id' => $groupId
     ];
 
@@ -82,7 +83,7 @@ try{
 
     $resultOfKeywordsAdder = $pageOfKeywordsAdder->getResult();
     $nameOfAddedKeyword = $resultOfKeywordsAdder->name;
-    echo "В группу id$groupId добавлено ключевое слово $nameOfAddedKeyword.";
+    echo "В группу id$groupId добавлено ключевое слово \"$nameOfAddedKeyword\".";
 }catch(Exception $e){
-    echo  $e->getMessage();
+    echo $e->getMessage();
 }

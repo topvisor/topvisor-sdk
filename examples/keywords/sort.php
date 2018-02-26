@@ -14,17 +14,17 @@ $Session = new TV\Session();
 
 $projectId = 2121417; // введите id своего проекта
 try{
-    $orderData = [TV\Fields::genOrderData('name', 'DESC')]; // сортировка по ключевой фразе в обратном алфавитном порядке
-    $sorterData = ['project_id' => $projectId];
+    $keywordsOrderData = [TV\Fields::genOrderData('name', 'DESC')]; // сортировка по ключевой фразе в обратном алфавитном порядке
+    $keywordsSorterData = ['project_id' => $projectId];
 
-    $sorter = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/sort');
-    $sorter->setData($sorterData);
-    $sorter->serOrders($orderData);
-    $pageOfSorter = $sorter->exec();
+    $keywordsSorter = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/sort');
+    $keywordsSorter->setData($keywordsSorterData);
+    $keywordsSorter->serOrders($keywordsOrderData);
+    $pageOfKeywordsSorter = $keywordsSorter->exec();
 
-    if($pageOfSorter->getErrors()) throw new \Exception($pageOfSorter->getErrorsString());
+    if($pageOfKeywordsSorter->getErrors()) throw new \Exception($pageOfKeywordsSorter->getErrorsString());
 
     echo 'Cортировка выполнена успешно!';
 }catch(Exception $e){
-    echo  $e->getMessage();
+    echo $e->getMessage();
 }

@@ -16,23 +16,23 @@ $Session = new TV\Session();
 $projectId = 2121417; // введите id своего проекта
 
 try{
-    $selectorFilterData = [
+    $keywordsSelectorFilterData = [
         TV\Fields::genFilterData('name', 'REGEXP', ['^фмл'])
     ];
-    $selectorData = ['project_id' => $projectId];
+    $keywordsSelectorData = ['project_id' => $projectId];
 
-    $selector = new TV\Pen($Session, 'get', 'keywords_2', 'keywords');
-    $selector->setData($selectorData);
-    $selector->setFilters($selectorFilterData);
-    $pageOfSelector = $selector->exec();
+    $keywordsSelector = new TV\Pen($Session, 'get', 'keywords_2', 'keywords');
+    $keywordsSelector->setData($keywordsSelectorData);
+    $keywordsSelector->setFilters($keywordsSelectorFilterData);
+    $pageOfKeywordsSelector = $keywordsSelector->exec();
 
-    if($pageOfSelector->getErrors()) throw new \Exception($pageOfSelector->getErrorsString());
+    if($pageOfKeywordsSelector->getErrors()) throw new \Exception($pageOfKeywordsSelector->getErrorsString());
 
-    $resultOfSelector = $pageOfSelector->getResult();
+    $resultOfKeywordsSelector = $pageOfKeywordsSelector->getResult();
 
     echo "<b>Выбранные фразы:</b><br>\n";
-    foreach($resultOfSelector as $res){
-        echo "$res->name<br>\n";
+    foreach($resultOfKeywordsSelector as $res){
+        echo "\"$res->name\"<br>\n";
     }
 }catch(Exception $e){
     echo $e->getMessage();

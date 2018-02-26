@@ -18,25 +18,25 @@ $projectId = 2121417; // введите id своего проекта
 try{
     // данные для вставки должны быть в .csv формате
     $CSVFile = file_get_contents('yourCSVFile.csv');
-    $importerData = [
+    $keywordsImporterData = [
         'project_id' => $projectId,
         'keywords' => $CSVFile
     ];
 
-    $importer = new TV\Pen($Session, 'add', 'keywords_2', 'keywords/import');
-    $importer->setData($importerData);
-    $pageOfImporter = $importer->exec();
+    $keywordsImporter = new TV\Pen($Session, 'add', 'keywords_2', 'keywords/import');
+    $keywordsImporter->setData($keywordsImporterData);
+    $pageOfKeywordsImporter = $keywordsImporter->exec();
 
     // если возникло исключение -> ошибка
-    if($pageOfImporter->getErrors()) throw new \Exception($pageOfImporter->getErrorsString());
+    if($pageOfKeywordsImporter->getErrors()) throw new \Exception($pageOfKeywordsImporter->getErrorsString());
 
-    $resultOfImporter = $pageOfImporter->getResult();
+    $resultOfKeywordsImporter = $pageOfKeywordsImporter->getResult();
 
     echo "
-    Количество отправленных ключевых фраз: $resultOfImporter->countSended.<br>\n
-    Количество найденных дублей: $resultOfImporter->countDuplicated.<br>\n
-    Количество добавленных ключевых фраз: $resultOfImporter->countAdded.<br>\n
-    Количество обновленных ключевых фраз: $resultOfImporter->countChanged.
+        Количество отправленных ключевых фраз: $resultOfKeywordsImporter->countSended.<br>\n
+        Количество найденных дублей: $resultOfKeywordsImporter->countDuplicated.<br>\n
+        Количество добавленных ключевых фраз: $resultOfKeywordsImporter->countAdded.<br>\n
+        Количество обновленных ключевых фраз: $resultOfKeywordsImporter->countChanged.
     ";
 }catch(Exception $e){
     echo $e->getMessage();
