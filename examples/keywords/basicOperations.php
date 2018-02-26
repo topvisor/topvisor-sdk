@@ -16,69 +16,73 @@ $Session = new TV\Session();
 
 $projectId = 2121417; // введите id своего проекта
 
+try {
 // добавление папки
-$foldersAdderData = [
-    'project_id' => $projectId,
-    'name' => 'new folder'
-];
+    $foldersAdderData = [
+        'project_id' => $projectId,
+        'name' => 'new folder'
+    ];
 
-$foldersAdder = new TV\Pen($Session, 'add', 'keywords_2', 'folders');
-$foldersAdder->setData($foldersAdderData);
-$pageOfFoldersAdder = $foldersAdder->exec();
+    $foldersAdder = new TV\Pen($Session, 'add', 'keywords_2', 'folders');
+    $foldersAdder->setData($foldersAdderData);
+    $pageOfFoldersAdder = $foldersAdder->exec();
 
-if($pageOfFoldersAdder->getErrors()) throw new \Exception($pageOfFoldersAdder->getErrorsString());
+    if ($pageOfFoldersAdder->getErrors()) throw new \Exception($pageOfFoldersAdder->getErrorsString());
 
-$resultOfFoldersAdder = $pageOfFoldersAdder->getResult();
-$folderId = $resultOfFoldersAdder->id;
-$folderName = $resultOfFoldersAdder->name;
-echo "Добавлена папка $folderId с именем $folderName.<br>";
+    $resultOfFoldersAdder = $pageOfFoldersAdder->getResult();
+    $folderId = $resultOfFoldersAdder->id;
+    $folderName = $resultOfFoldersAdder->name;
+    echo "Добавлена папка id$folderId с именем $folderName.<br>";
 
 // изменим имя папки
-$foldersUpdaterData = [
-    'project_id' => $projectId,
-    'name' => 'I can rename folder',
-    'id' => $folderId
-];
+    $foldersUpdaterData = [
+        'project_id' => $projectId,
+        'name' => 'I can rename folder',
+        'id' => $folderId
+    ];
 
-$foldersUpdater = new TV\Pen($Session, 'edit', 'keywords_2', 'folders/rename');
-$foldersUpdater->setData($foldersUpdaterData);
-$resultOfFoldersUpdater = $foldersUpdater->exec();
+    $foldersUpdater = new TV\Pen($Session, 'edit', 'keywords_2', 'folders/rename');
+    $foldersUpdater->setData($foldersUpdaterData);
+    $resultOfFoldersUpdater = $foldersUpdater->exec();
 
-if($resultOfFoldersUpdater->getErrors()) throw new \Exception($resultOfFoldersUpdater->getErrorsString());
+    if ($resultOfFoldersUpdater->getErrors()) throw new \Exception($resultOfFoldersUpdater->getErrorsString());
 
-$newFolderName = $foldersUpdaterData['name'];
-echo "Имя папки $folderId изменено на $newFolderName.<br>\n";
+    $newFolderName = $foldersUpdaterData['name'];
+    echo "Имя папки id$folderId изменено на $newFolderName.<br>\n";
 
 // создадим группу в папке
-$groupsAdderData = [
-    'project_id' => $projectId,
-    'to_id' => $folderId
-];
+    $groupsAdderData = [
+        'project_id' => $projectId,
+        'to_id' => $folderId
+    ];
 
-$groupsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'groups');
-$groupsAdder->setData($groupsAdderData);
-$pageOfGroupsAdder = $groupsAdder->exec(); // Тип возвращаемого значения - array
+    $groupsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'groups');
+    $groupsAdder->setData($groupsAdderData);
+    $pageOfGroupsAdder = $groupsAdder->exec(); // Тип возвращаемого значения - array
 
-if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
+    if ($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
 
-$resultOfGroupsAdder = $pageOfGroupsAdder->getResult();
-$groupId = $resultOfGroupsAdder[0]->id;
-$groupName = $resultOfGroupsAdder[0]->name;
-echo "В папку $folderId добавлена группа $groupId с именем $groupName.<br>\n";
+    $resultOfGroupsAdder = $pageOfGroupsAdder->getResult();
+    $groupId = $resultOfGroupsAdder[0]->id;
+    $groupName = $resultOfGroupsAdder[0]->name;
+    echo "В папку id$folderId добавлена группа id$groupId с именем $groupName.<br>\n";
 
 // добавим ключевое слово в группу
-$keywordsAdderData = [
-    'project_id' => $projectId,
-    'name' => 'new keyword',
-    'to_id' => $groupId
-];
+    $keywordsAdderData = [
+        'project_id' => $projectId,
+        'name' => 'new keyword',
+        'to_id' => $groupId
+    ];
 
-$keywordsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'keywords');
-$keywordsAdder->setData($keywordsAdderData);
-$pageOfKeywordsAdder = $keywordsAdder->exec();
+    $keywordsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'keywords');
+    $keywordsAdder->setData($keywordsAdderData);
+    $pageOfKeywordsAdder = $keywordsAdder->exec();
 
-if($pageOfKeywordsAdder->getErrors()) throw new \Exception($pageOfKeywordsAdder->getErrorsString());
+    if ($pageOfKeywordsAdder->getErrors()) throw new \Exception($pageOfKeywordsAdder->getErrorsString());
 
-$resultOfKeywordsAdder = $pageOfKeywordsAdder->getResult();
-$nameOfAddedKeyword = $resultOfKeywordsAdder->name;
-echo "В группу $groupId добавлено ключевое слово $nameOfAddedKeyword.";
+    $resultOfKeywordsAdder = $pageOfKeywordsAdder->getResult();
+    $nameOfAddedKeyword = $resultOfKeywordsAdder->name;
+    echo "В группу id$groupId добавлено ключевое слово $nameOfAddedKeyword.";
+}catch (Exception $e){
+    echo  $e->getMessage();
+}

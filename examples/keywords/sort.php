@@ -13,15 +13,18 @@ include_once('/var/www/include/library/composer_libs/vendor/autoload.php');
 $Session = new TV\Session();
 
 $projectId = 2121417; // введите id своего проекта
+try {
+    $orderData = [TV\Fields::genOrderData('name', 'DESC')]; // сортировка по ключевой фразе в обратном алфавитном порядке
+    $sorterData = ['project_id' => $projectId];
 
-$orderData = [TV\Fields::genOrderData('name', 'DESC')]; // сортировка по ключевой фразе в обратном алфавитном порядке
-$sorterData = ['project_id'=>$projectId];
+    $sorter = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/sort');
+    $sorter->setData($sorterData);
+    $sorter->serOrders($orderData);
+    $pageOfSorter = $sorter->exec();
 
-$sorter = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/sort');
-$sorter->setData($sorterData);
-$sorter->serOrders($orderData);
-$pageOfSorter = $sorter->exec();
+    if ($pageOfSorter->getErrors()) throw new \Exception($pageOfSorter->getErrorsString());
 
-if($pageOfSorter->getErrors()) throw new \Exception($pageOfSorter->getErrorsString());
-
-echo 'Cортировка выполнена успешно!';
+    echo 'Cортировка выполнена успешно!';
+}catch (Exception $e){
+    echo  $e->getMessage();
+}
