@@ -34,7 +34,7 @@ try{
 	
 	echo "<b>Выбранные фразы:</b><br>\n";
 	foreach($SelectedKeywords as $keyword){
-		echo "id$keyword->id \"$keyword->name\" из группы \"$keyword->group_name\" <br>\n";
+		echo "id$keyword->id;\"$keyword->name\";\"$keyword->group_name\" <br>\n";
 	}
 }catch(Exception $e){
 	echo $e->getMessage();

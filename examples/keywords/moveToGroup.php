@@ -30,14 +30,12 @@ try{
 	
 	$resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // Тип возвращаемого значения - array
 	$addedGroup = $resultOfGroupsAdder[0];
-	$groupName = $addedGroup->name; // т.к. добавили одну папку, она находится на 0 месте в массиве resultOfGroupsAdder[]
-	echo "Группа \"$groupName\" создана.<br>\n";
+	echo "Группа \"$addedGroup->name\" создана.<br>\n";
 	
-	$groupId = $addedGroup->id;
 	$keywordsMoverFilterData = [TV\Fields::genFilterData('name', 'STARTS_WITH', ['а'])];
 	$keywordsMoverData = [
 		'project_id' => $projectId,
-		'to_id' => $groupId,
+		'to_id' => $addedGroup->id,
 	];
 	
 	$keywordsMover = new TV\Pen($Session, 'edit', 'keywords_2', 'keywords/move');
