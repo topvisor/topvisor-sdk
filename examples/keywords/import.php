@@ -8,15 +8,15 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
-include_once('/var/www/include/library/composer_libs/vendor/autoload.php');
+include(__DIR__.'/../../autoload.php');
 
 // создание сессии
 $Session = new TV\Session();
 
 $projectId = 2121417; // введите id своего проекта
 
-try {
-// данные для вставки должны быть в .csv формате
+try{
+    // данные для вставки должны быть в .csv формате
     $CSVFile = file_get_contents('yourCSVFile.csv');
     $importerData = [
         'project_id' => $projectId,
@@ -27,8 +27,8 @@ try {
     $importer->setData($importerData);
     $pageOfImporter = $importer->exec();
 
-// если возникло исключение -> ошибка
-    if ($pageOfImporter->getErrors()) throw new \Exception($pageOfImporter->getErrorsString());
+    // если возникло исключение -> ошибка
+    if($pageOfImporter->getErrors()) throw new \Exception($pageOfImporter->getErrorsString());
 
     $resultOfImporter = $pageOfImporter->getResult();
 
@@ -37,7 +37,7 @@ try {
     Количество найденных дублей: $resultOfImporter->countDuplicated.<br>\n
     Количество добавленных ключевых фраз: $resultOfImporter->countAdded.<br>\n
     Количество обновленных ключевых фраз: $resultOfImporter->countChanged.
-";
-} catch (Exception $e) {
+    ";
+}catch(Exception $e){
     echo $e->getMessage();
 }

@@ -8,14 +8,14 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
-include_once('/var/www/include/library/composer_libs/vendor/autoload.php');
+include(__DIR__.'/../../autoload.php');
 
 // создание сессии
 $Session = new TV\Session();
 
 $projectId = 2121417; // введите id своего проекта
 
-try {
+try{
     // создание группы А
     $groupsAdderData = [
         'project_id' => $projectId,
@@ -26,7 +26,7 @@ try {
     $groupsAdder->setData($groupsAdderData);
     $pageOfGroupsAdder = $groupsAdder->exec(); // Тип возвращаемого значения - array
 
-    if ($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
+    if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
 
     $resultOfGroupsAdder = $pageOfGroupsAdder->getResult();
     $groupName = $resultOfGroupsAdder[0]->name;
@@ -44,10 +44,10 @@ try {
     $mover->setFilters($moverFilterData);
     $pageOfMover = $mover->exec();
 
-    if ($pageOfMover->getErrors()) throw new \Exception($pageOfMover->getErrorsString());
+    if($pageOfMover->getErrors()) throw new \Exception($pageOfMover->getErrorsString());
 
     $resultOfMover = $pageOfMover->getResult();
     echo "Перемещено $resultOfMover ключевых слов.";
-} catch (Exception $e) {
+}catch(Exception $e){
     echo $e->getMessage();
 }

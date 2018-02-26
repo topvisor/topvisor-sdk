@@ -9,15 +9,15 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
-include_once('/var/www/include/library/composer_libs/vendor/autoload.php');
+include(__DIR__.'/../../autoload.php');
 
 // создание сессии
 $Session = new TV\Session();
 
 $projectId = 2121417; // введите id своего проекта
 
-try {
-// добавление папки
+try{
+    // добавление папки
     $foldersAdderData = [
         'project_id' => $projectId,
         'name' => 'new folder'
@@ -27,17 +27,17 @@ try {
     $foldersAdder->setData($foldersAdderData);
     $pageOfFoldersAdder = $foldersAdder->exec();
 
-    if ($pageOfFoldersAdder->getErrors()) throw new \Exception($pageOfFoldersAdder->getErrorsString());
+    if($pageOfFoldersAdder->getErrors()) throw new \Exception($pageOfFoldersAdder->getErrorsString());
 
     $resultOfFoldersAdder = $pageOfFoldersAdder->getResult();
     $folderId = $resultOfFoldersAdder->id;
     $folderName = $resultOfFoldersAdder->name;
     echo "Добавлена папка id$folderId с именем $folderName.<br>";
 
-// изменим имя папки
+    // изменим имя папки
     $foldersUpdaterData = [
         'project_id' => $projectId,
-        'name' => 'I can rename folder',
+        'name' => 'New folder',
         'id' => $folderId
     ];
 
@@ -45,12 +45,12 @@ try {
     $foldersUpdater->setData($foldersUpdaterData);
     $resultOfFoldersUpdater = $foldersUpdater->exec();
 
-    if ($resultOfFoldersUpdater->getErrors()) throw new \Exception($resultOfFoldersUpdater->getErrorsString());
+    if($resultOfFoldersUpdater->getErrors()) throw new \Exception($resultOfFoldersUpdater->getErrorsString());
 
     $newFolderName = $foldersUpdaterData['name'];
     echo "Имя папки id$folderId изменено на $newFolderName.<br>\n";
 
-// создадим группу в папке
+    // создадим группу в папке
     $groupsAdderData = [
         'project_id' => $projectId,
         'to_id' => $folderId
@@ -60,14 +60,14 @@ try {
     $groupsAdder->setData($groupsAdderData);
     $pageOfGroupsAdder = $groupsAdder->exec(); // Тип возвращаемого значения - array
 
-    if ($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
+    if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
 
     $resultOfGroupsAdder = $pageOfGroupsAdder->getResult();
     $groupId = $resultOfGroupsAdder[0]->id;
     $groupName = $resultOfGroupsAdder[0]->name;
     echo "В папку id$folderId добавлена группа id$groupId с именем $groupName.<br>\n";
 
-// добавим ключевое слово в группу
+    // добавим ключевое слово в группу
     $keywordsAdderData = [
         'project_id' => $projectId,
         'name' => 'new keyword',
@@ -78,11 +78,11 @@ try {
     $keywordsAdder->setData($keywordsAdderData);
     $pageOfKeywordsAdder = $keywordsAdder->exec();
 
-    if ($pageOfKeywordsAdder->getErrors()) throw new \Exception($pageOfKeywordsAdder->getErrorsString());
+    if($pageOfKeywordsAdder->getErrors()) throw new \Exception($pageOfKeywordsAdder->getErrorsString());
 
     $resultOfKeywordsAdder = $pageOfKeywordsAdder->getResult();
     $nameOfAddedKeyword = $resultOfKeywordsAdder->name;
     echo "В группу id$groupId добавлено ключевое слово $nameOfAddedKeyword.";
-}catch (Exception $e){
+}catch(Exception $e){
     echo  $e->getMessage();
 }

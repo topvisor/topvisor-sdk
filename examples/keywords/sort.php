@@ -7,13 +7,13 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
-include_once('/var/www/include/library/composer_libs/vendor/autoload.php');
+include(__DIR__.'/../../autoload.php');
 
 // создание сессии
 $Session = new TV\Session();
 
 $projectId = 2121417; // введите id своего проекта
-try {
+try{
     $orderData = [TV\Fields::genOrderData('name', 'DESC')]; // сортировка по ключевой фразе в обратном алфавитном порядке
     $sorterData = ['project_id' => $projectId];
 
@@ -22,9 +22,9 @@ try {
     $sorter->serOrders($orderData);
     $pageOfSorter = $sorter->exec();
 
-    if ($pageOfSorter->getErrors()) throw new \Exception($pageOfSorter->getErrorsString());
+    if($pageOfSorter->getErrors()) throw new \Exception($pageOfSorter->getErrorsString());
 
     echo 'Cортировка выполнена успешно!';
-}catch (Exception $e){
+}catch(Exception $e){
     echo  $e->getMessage();
 }

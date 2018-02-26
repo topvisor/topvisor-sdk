@@ -8,14 +8,14 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
-include_once('/var/www/include/library/composer_libs/vendor/autoload.php');
+include(__DIR__.'/../../autoload.php');
 
 // создание сессии
 $Session = new TV\Session();
 
 $projectId = 2121417; // введите id своего проекта
 
-try {
+try{
     $selectorFilterData = [
         TV\Fields::genFilterData('name', 'REGEXP', ['^фмл'])
     ];
@@ -26,14 +26,14 @@ try {
     $selector->setFilters($selectorFilterData);
     $pageOfSelector = $selector->exec();
 
-    if ($pageOfSelector->getErrors()) throw new \Exception($pageOfSelector->getErrorsString());
+    if($pageOfSelector->getErrors()) throw new \Exception($pageOfSelector->getErrorsString());
 
     $resultOfSelector = $pageOfSelector->getResult();
 
     echo "<b>Выбранные фразы:</b><br>\n";
-    foreach ($resultOfSelector as $res) {
+    foreach($resultOfSelector as $res){
         echo "$res->name<br>\n";
     }
-} catch (Exception $e) {
+}catch(Exception $e){
     echo $e->getMessage();
 }
