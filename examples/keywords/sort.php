@@ -43,8 +43,9 @@ try{
     $pageOfKeywordsSorter = $keywordsSorter->exec();
 
     if($pageOfKeywordsSorter->getErrors()) throw new \Exception($pageOfKeywordsSorter->getErrorsString());
-
-    echo "<b>Cортировка группы \"$groupName\" выполнена успешно!</b><br>\n";
+    
+    $direction = ($keywordsOrderData[0]['direction']=='ASC') ? 'по возрастанию' : 'по убыванию';
+    echo "<b>Cортировка группы \"$groupName\" $direction выполнена успешно!</b><br>\n";
 
     $pageOfKeywordsSelector = $keywordsSelector->exec();
 
