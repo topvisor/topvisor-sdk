@@ -48,7 +48,8 @@ try{
 	if($pageOfKeywordsSorter->getErrors()) throw new \Exception($pageOfKeywordsSorter->getErrorsString());
 	
 	$direction = ($keywordsOrderData[0]['direction'] == 'ASC')?'по возрастанию':'по убыванию';
-	echo "<br>\n<b>Cортировка группы id$groupId $direction выполнена успешно!</b><br><br>\n\n";
+	echo "<br>\n";
+	echo "<b>Cортировка группы id$groupId $direction выполнена успешно!</b><br><br>\n\n";
 	
 	$pageOfKeywordsSelector = $keywordsSelector->exec();
 	
