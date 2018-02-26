@@ -1,5 +1,7 @@
 <?
 
+use Topvisor\TopvisorSDK\V2 as TV;
+
 /**
  * Сервис Ключевые фразы создан для удобства работы с папками, группами и ключевыми словами.
  * В данном примере производится добавление новой папки, изменение её имени,
@@ -7,9 +9,6 @@
  * https://topvisor.ru/api/v2-services/keywords_2/
  * */
 
-use Topvisor\TopvisorSDK\V2 as TV;
-
-// локальный путь до composer (или topvisorSDK)
 include_once('/var/www/include/library/composer_libs/vendor/autoload.php');
 
 // создание сессии
@@ -29,6 +28,7 @@ $pageOfFoldersAdder = $foldersAdder->exec();
 
 // если возникло исключение -> ошибка
 if($pageOfFoldersAdder->getErrors()) throw new \Exception($pageOfFoldersAdder->getErrorsString());
+echo "Добавлена папка с id: {$pageOfFoldersAdder->getResult()->id}.<br>";
 
 // изменим имя папки
 $folderId = $pageOfFoldersAdder->getResult()->id;
@@ -43,6 +43,7 @@ $foldersUpdater->setData($foldersUpdaterData);
 $resultOfFoldersUpdater = $foldersUpdater->exec();
 
 if($resultOfFoldersUpdater->getErrors()) throw new \Exception($resultOfFoldersUpdater->getErrorsString());
+echo 'Имя папки изменено.<br>';
 
 // создадим группу в папке
 $groupsAdderData = [
@@ -56,6 +57,7 @@ $pageOfGroupsAdder = $groupsAdder->exec(); // Тип возвращаемого 
 
 // если возникло исключение -> ошибка
 if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
+echo "Добавлена группа с id: {$pageOfGroupsAdder->getResult()[0]->id}.<br>";
 
 // добавим ключевое слово в группу
 $groupId = $pageOfGroupsAdder->getResult()[0]->id;
@@ -72,8 +74,4 @@ $pageOfKeywordsAdder = $keywordsAdder->exec();
 if($pageOfKeywordsAdder->getErrors()) throw new \Exception($pageOfKeywordsAdder->getErrorsString());
 
 $nameOfAddedKeyword = $pageOfKeywordsAdder->getResult()->name;
-echo "
-    Добавлена папка с id: $folderId.<br>
-    Добавлена группа с id: $groupId.<br>
-    В группу добавлено ключевое слово: $nameOfAddedKeyword.<br>
-";
+echo "В группу добавлено ключевое слово: $nameOfAddedKeyword.";
