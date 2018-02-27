@@ -32,7 +32,7 @@ try{
 	$addedFolder = $pageOfFoldersAdder->getResult();
 	$folderId = $addedFolder->id;
 	$folderName = $addedFolder->name;
-	echo "Добавлена папка id$folderId с именем \"$folderName\".<br>";
+	echo "Добавлена папка id$folderId с именем \"$folderName\"<br>\n";
 	
 	// изменим имя папки
 	$foldersUpdaterData = [
@@ -48,7 +48,7 @@ try{
 	if($pageOfFoldersUpdater->getErrors()) throw new \Exception($pageOfFoldersUpdater->getErrorsString());
 	
 	$newFolderName = $foldersUpdaterData['name'];
-	echo "Имя папки id$folderId изменено на \"$newFolderName\".<br>\n";
+	echo "Имя папки id$folderId изменено на \"$newFolderName\"<br>\n";
 	
 	// создадим группу в папке
 	$groupsAdderData = [
@@ -65,7 +65,7 @@ try{
 	
 	$resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // тип возвращаемого значения - array
 	$addedGroup = $resultOfGroupsAdder[0];
-	echo "В папку id$folderId добавлена группа id$addedGroup->id с именем \"$addedGroup->name\".<br>\n";
+	echo "В папку id$folderId добавлена группа id$addedGroup->id с именем \"$addedGroup->name\"<br>\n";
 	
 	// добавим ключевое слово в группу
 	$keywordsAdderData = [
@@ -82,7 +82,7 @@ try{
 	
 	$addedKeyword = $pageOfKeywordsAdder->getResult();
 	$nameOfAddedKeyword = $addedKeyword->name;
-	echo "В группу id$groupId добавлено ключевое слово \"$nameOfAddedKeyword\".";
+	echo "В группу id$addedGroup->id добавлено ключевое слово \"$nameOfAddedKeyword\"\n";
 }catch(Exception $e){
 	echo $e->getMessage();
 }

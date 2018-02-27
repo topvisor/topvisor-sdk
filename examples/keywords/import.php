@@ -32,10 +32,10 @@ try{
 	$resultOfKeywordsImporter = $pageOfKeywordsImporter->getResult();
 	
 	echo "
-        Количество отправленных ключевых фраз: $resultOfKeywordsImporter->countSended.<br>\n
-        Количество найденных дублей: $resultOfKeywordsImporter->countDuplicated.<br>\n
-        Количество добавленных ключевых фраз: $resultOfKeywordsImporter->countAdded.<br>\n
-        Количество обновленных ключевых фраз: $resultOfKeywordsImporter->countChanged.
+        Количество отправленных ключевых фраз: $resultOfKeywordsImporter->countSended<br>\n
+        Количество найденных дублей: $resultOfKeywordsImporter->countDuplicated<br>\n
+        Количество добавленных ключевых фраз: $resultOfKeywordsImporter->countAdded<br>\n
+        Количество обновленных ключевых фраз: $resultOfKeywordsImporter->countChanged
     ";
 }catch(Exception $e){
 	echo $e->getMessage();

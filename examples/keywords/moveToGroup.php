@@ -45,11 +45,11 @@ try{
 		
 		$resultOfGroupsAdder = $pageOfGroupsAdder->getResult(); // тип возвращаемого значения - array
 		$addedGroup = $resultOfGroupsAdder[0];
-		echo "Группа $addedGroup->id создана.<br>\n";
+		echo "Группа $addedGroup->id создана<br>\n";
 		$group = $addedGroup;
 	}else{
 		$group = $resultOfGroupsSelector[0];
-		echo "Группа id$group->id с именем 'A' уже существовала<br>\n";
+		echo "Группа id$group->id с именем 'A' уже существует<br>\n";
 	}
 	
 	$keywordsMoverData = [
@@ -66,7 +66,7 @@ try{
 	if($pageOfKeywordsMover->getErrors()) throw new \Exception($pageOfKeywordsMover->getErrorsString());
 	
 	$resultOfKeywordsMover = $pageOfKeywordsMover->getResult();
-	echo "Перемещено $resultOfKeywordsMover ключевых слов.";
+	echo "Перемещено $resultOfKeywordsMover ключевых слов";
 }catch(Exception $e){
 	echo $e->getMessage();
 }
