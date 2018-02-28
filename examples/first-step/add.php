@@ -11,7 +11,7 @@ use Topvisor\TopvisorSDK\V2 as TV;
 include(__DIR__.'/../../autoload.php');
 
 // Создание сессии. Подробнее: https://dev.topvisor.ru/api/v2/sdk-php/session/
-$Session = new TV\Session();
+$TVSession = new TV\Session();
 
 // введите id своего проекта
 $projectId = 2121417;
@@ -25,7 +25,7 @@ try{
 	];
 	
 	// Объект для построения запроса. Подробнее: https://dev.topvisor.ru/api/v2/sdk-php/pen/
-	$groupsAdder = new TV\Pen($Session, 'add', 'keywords_2', 'groups');
+	$groupsAdder = new TV\Pen($TVSession, 'add', 'keywords_2', 'groups');
 	
 	// установка параметров запроса
 	$groupsAdder->setData($groupsAdderData);
@@ -38,6 +38,7 @@ try{
 	
 	// сохраним результат выполнения запроса - массив объектов
 	$resultOfAddedGroup = $pageOfGroupsAdder->getResult();
+	
 	// сохраним количество возвращённых объектов - добавленных групп
 	$countOfAddedGroups = count($resultOfAddedGroup);
 	
@@ -49,13 +50,12 @@ try{
 		echo "\"$addedGroup->name\" $switchedMessage<br>\n";
 	}
 	
-	// узнаем общее количество групп в проекте
-	
+	// УЗНАЕМ ОБЩЕЕ КОЛИЧЕСТВО ГРУПП В ПРОЕКТЕ
 	$groupsSelectorData = ['project_id' => $projectId];
 	// так как нас интересует только количество групп, никакие поля не понадобятся
 	$groupsSelectorFields = [];
 	
-	$groupsSelector = new TV\Pen($Session, 'get', 'keywords_2', 'groups');
+	$groupsSelector = new TV\Pen($TVSession, 'get', 'keywords_2', 'groups');
 	
 	$groupsSelector->setData($groupsSelectorData);
 	// Для любого запроса с оператором get необходимо указывать поля. Подробнее: https://dev.topvisor.ru/api/v2/basic-params/fields/
