@@ -32,7 +32,7 @@ class Session{
 
 	function getUserId(){
 		return $this->userId;
-	}
+	} 
 
 	// only utf-8 is supported
 	function getHeadersForRequest(){
