@@ -21,7 +21,6 @@ function showCountGroupsByOn($groupsSelector, int $on){
 	$groupsSelectorFilters = [TV\Fields::genFilterData('on', 'EQUALS', [$on])];
 	
 	$groupsSelector->setFilters($groupsSelectorFilters); // https://topvisor.ru/api/v2/basic-params/filters/
-	
 	$pageOfGroupsSelector = $groupsSelector->exec(); // выполнить обращение к API
 	
 	// метод getErrorsString() вернёт все возникшие ошибки в одной строке
@@ -29,19 +28,18 @@ function showCountGroupsByOn($groupsSelector, int $on){
 	
 	// результат выполнения запроса, в данном случае это массив с количеством выбранных групп
 	$resultOfGroupsSelector = $pageOfGroupsSelector->getResult();
-	
 	$countOfGroups = $resultOfGroupsSelector[0]->{'COUNT(*)'};
-	
 	$switchMessage = ($on)?'Включено':'Выключено';
 	
 	echo "$switchMessage <b>$countOfGroups</b> групп<br>\n";
-}
-;
+};
 
 try{
+	// массив с параметрами запроса
 	$groupsData = [
-		'project_id' => $projectId, 'on' => 1,
-	]; // массив с параметрами запроса
+		'project_id' => $projectId,
+		'on' => 1,
+	];
 	$groupsSelectorFields = ['COUNT(*)']; // запрашиваемые поля
 	
 	// объект для построения запроса на получение данных: https://topvisor.ru/api/v2/sdk-php/pen/
@@ -54,16 +52,13 @@ try{
 	showCountGroupsByOn($groupsSelector, 1);
 	showCountGroupsByOn($groupsSelector, 0);
 	
-	$groupsEditorFields = ['on']; // запрашиваемые поля для поиска групп
 	$groupsEditorFilters = [TV\Fields::genFilterData('on', 'EQUALS', [0])]; // массив с указанием фильтра
 	
 	// объект для построения запроса на изменение данных: https://topvisor.ru/api/v2/sdk-php/pen/
 	$groupsEditor = new TV\Pen($TVSession, 'edit', 'keywords_2', 'groups/on');
 	
 	$groupsEditor->setData($groupsData);
-	$groupsEditor->setFields($groupsEditorFields);
 	$groupsEditor->setFilters($groupsEditorFilters);
-	
 	$pageOfGroupsEditor = $groupsEditor->exec();
 	
 	if($pageOfGroupsEditor->getErrors()) throw new \Exception($pageOfGroupsEditor->getErrorsString());

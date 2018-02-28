@@ -25,7 +25,6 @@ try{
 	$keywordsSelector->setData($keywordsSelectorData);
 	$keywordsSelector->setFields($keywordsSelectorFields);
 	$keywordsSelector->setFilters($keywordsSelectorFilter);
-
 	$pageOfKeywordsSelector = $keywordsSelector->exec();
 
 	if($pageOfKeywordsSelector->getErrors()) throw new \Exception($pageOfKeywordsSelector->getErrorsString());

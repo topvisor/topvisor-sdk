@@ -34,10 +34,10 @@ try{
 
 		// метод getErrorsString() вернёт все возникшие ошибки в одной строке
 		if($pageOfBankPayments->getErrors()) throw new \Exception($pageOfBankPayments->getErrorsString());
-
+		
 		// результат выполнения запроса, в данном случае это строки лога банка
 		$resultOfBankPayments = $pageOfBankPayments->getResult();
-
+		
 		// построчный вывод лога банка
 		foreach($resultOfBankPayments as $payment){
 			echo "$payment->date;$payment->status;$payment->sum<br>\n";
@@ -65,7 +65,6 @@ try{
 		if($pageOfBankHistory->getErrors()) throw new \Exception($pageOfBankHistory->getErrorsString());
 
 		$resultOfBankHistory = $pageOfBankHistory->getResult();
-
 		foreach($resultOfBankHistory as $debit){
 			echo "$debit->date;$debit->target;$debit->sum<br>\n";
 		}

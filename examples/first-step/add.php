@@ -17,27 +17,23 @@ $TVSession = new TV\Session(); // создание сессии: https://topviso
 $projectId = 2121417; // введите id своего проекта
 
 try{
+	// массив с параметрами запроса
 	$groupsAdderData = [
 		'project_id' => $projectId,
 		'name' => ['Крокодилы', 'Бегемоты', 'Зелёные попугаи'],
 		'on' => rand(0, 1),
-	]; // массив с параметрами запроса
+	];
 	
 	// объект для построения запроса на добавление данных: https://topvisor.ru/api/v2/sdk-php/pen/
 	$groupsAdder = new TV\Pen($TVSession, 'add', 'keywords_2', 'groups');
-	
 	$groupsAdder->setData($groupsAdderData);
-	
 	$pageOfGroupsAdder = $groupsAdder->exec(); // выполнить обращение к API
 	
 	// метод getErrorsString() вернёт все возникшие ошибки в одной строке
 	if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
 	
-	// результат выполнения запроса, в данном случае это массив с количеством добавленных групп
-	$resultOfAddedGroup = $pageOfGroupsAdder->getResult();
-	
-	// сохраним количество возвращённых объектов - добавленных групп
-	$countOfAddedGroups = count($resultOfAddedGroup);
+	$resultOfAddedGroup = $pageOfGroupsAdder->getResult(); // результат выполнения запроса, в данном случае это массив добавленных групп
+	$countOfAddedGroups = count($resultOfAddedGroup); // сохраним количество возвращённых объектов - добавленных групп
 	
 	echo "<b>Добавлено $countOfAddedGroups новые группы:</b><br>\n";
 	
@@ -49,12 +45,11 @@ try{
 	
 	// УЗНАЕМ ОБЩЕЕ КОЛИЧЕСТВО ГРУПП В ПРОЕКТЕ
 	$groupsSelectorData = ['project_id' => $projectId];
-	$groupsSelectorFields = ['COUNT(*)'];
+	$groupsSelectorFields = ['COUNT(*)']; // Массив с указанием фильтра: https://topvisor.ru/api/v2/basic-params/filters/
 	
 	$groupsSelector = new TV\Pen($TVSession, 'get', 'keywords_2', 'groups');
 	$groupsSelector->setData($groupsSelectorData);
-	$groupsSelector->setFields($groupsSelectorFields);
-	
+	$groupsSelector->setFields($groupsSelectorFields); // https://topvisor.ru/api/v2/basic-params/fields/
 	$pageOfGroupsSelector = $groupsSelector->exec();
 	
 	if($pageOfGroupsSelector->getErrors()) throw new \Exception($pageOfGroupsSelector->getErrorsString());
