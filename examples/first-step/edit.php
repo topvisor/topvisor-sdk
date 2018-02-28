@@ -1,10 +1,9 @@
 <?php
-
 /**
  * Для редактирования объектов используется оператор edit.
  * В данном примере отобразим количество включенных и выключенных групп проекта.
  * Затем включим все выключенные группы проекта и снова отобразим количество включенных и выключенных групп.
- * 
+ *
  * https://topvisor.ru/api/v2/operators/edit/
  * */
 
@@ -12,72 +11,68 @@ use Topvisor\TopvisorSDK\V2 as TV;
 
 include(__DIR__.'/../../autoload.php');
 
-// Создание сессии. Подробнее: https://topvisor.ru/api/v2/sdk-php/session/
-$session = new TV\Session();
+$TVSession = new TV\Session(); // создание сессии: https://topvisor.ru/api/v2/sdk-php/session/
 
-// введите id своего проекта
-$projectId = 2121417;
+$projectId = 2121417; // введите id своего проекта
 
-// выводит количество включённых или выключенных групп
-function showAmountOfGroups($switchedOn){
-	global $groupsSelector;
-
-	// Создадим фильтр, проверяющий, включена ли группа. Подробнее о фильтрах: https://topvisor.ru/api/v2/basic-params/filters/
-	$groupsFilters = [TV\Fields::genFilterData('on', 'EQUALS', [$switchedOn])];
-
-	// установим фильтры
-	$groupsSelector->setFilters($groupsFilters);
-
-	// выполнение запроса
-	$pageOfGroupsSelector = $groupsSelector->exec();
-
+// выводит количество включённых ($on = 1) или выключенных ($on = 0) групп
+function showCountGroupsByOn($groupsSelector, int $on){
+	// Массив с указанием фильтра: https://topvisor.ru/api/v2/basic-params/filters/
+	$groupsSelectorFilters = [TV\Fields::genFilterData('on', 'EQUALS', [$on])];
+	
+	$groupsSelector->setFilters($groupsSelectorFilters); // https://topvisor.ru/api/v2/basic-params/filters/
+	
+	$pageOfGroupsSelector = $groupsSelector->exec(); // выполнить обращение к API
+	
 	// метод getErrorsString() вернёт все возникшие ошибки в одной строке
 	if($pageOfGroupsSelector->getErrors()) throw new \Exception($pageOfGroupsSelector->getErrorsString());
-
-	// сохраним результат выполнения запроса - массив объектов
+	
+	// результат выполнения запроса, в данном случае это массив с количеством выбранных групп
 	$resultOfGroupsSelector = $pageOfGroupsSelector->getResult();
-	$countOfGroups = count($resultOfGroupsSelector);
-
-	$switchMessage = ($switchedOn)?'Включено':'Выключено';
-
+	
+	$countOfGroups = $resultOfGroupsSelector[0]->{'COUNT(*)'};
+	
+	$switchMessage = ($on)?'Включено':'Выключено';
+	
 	echo "$switchMessage <b>$countOfGroups</b> групп<br>\n";
-};
+}
+;
 
 try{
 	$groupsData = [
 		'project_id' => $projectId, 'on' => 1,
-	]; // параметры запроса
-	$groupsFields = ['on']; // поля, которые потребуются
-	$groupsFilters = [TV\Fields::genFilterData('on', 'EQUALS', [0])]; // фильтры, которые "найдут" выключенные группы
-
-	// Объект для построения запроса. Подробнее: https://topvisor.ru/api/v2/sdk-php/pen/
-	$groupsSelector = new TV\Pen($session, 'get', 'keywords_2', 'groups');
-
-	// установка параметров запроса
+	]; // массив с параметрами запроса
+	$groupsSelectorFields = ['COUNT(*)']; // запрашиваемые поля
+	
+	// объект для построения запроса на получение данных: https://topvisor.ru/api/v2/sdk-php/pen/
+	$groupsSelector = new TV\Pen($TVSession, 'get', 'keywords_2', 'groups');
+	
 	$groupsSelector->setData($groupsData);
-
-	// Для любого запроса с оператором get необходимо указывать поля. Подробнее: https://topvisor.ru/api/v2/basic-params/fields/
-	$groupsSelector->setFields($groupsFields);
-
+	$groupsSelector->setFields($groupsSelectorFields); // https://topvisor.ru/api/v2/basic-params/fields/
+	
 	// выведем, сколько групп было включено и выключено до использования метода
-	showAmountOfGroups(1);
-	showAmountOfGroups(0);
-
-	$groupsEditor = new TV\Pen($session, 'edit', 'keywords_2', 'groups/on');
-
+	showCountGroupsByOn($groupsSelector, 1);
+	showCountGroupsByOn($groupsSelector, 0);
+	
+	$groupsEditorFields = ['on']; // запрашиваемые поля для поиска групп
+	$groupsEditorFilters = [TV\Fields::genFilterData('on', 'EQUALS', [0])]; // массив с указанием фильтра
+	
+	// объект для построения запроса на изменение данных: https://topvisor.ru/api/v2/sdk-php/pen/
+	$groupsEditor = new TV\Pen($TVSession, 'edit', 'keywords_2', 'groups/on');
+	
 	$groupsEditor->setData($groupsData);
-	$groupsEditor->setFields($groupsFields);
-	$groupsEditor->setFilters($groupsFilters);
-
+	$groupsEditor->setFields($groupsEditorFields);
+	$groupsEditor->setFilters($groupsEditorFilters);
+	
 	$pageOfGroupsEditor = $groupsEditor->exec();
-
+	
 	if($pageOfGroupsEditor->getErrors()) throw new \Exception($pageOfGroupsEditor->getErrorsString());
-
+	
 	echo "<br>\n";
 	echo "<b>Все группы включены</b><br><br>\n\n";
-
-	showAmountOfGroups(1);
-	showAmountOfGroups(0);
+	
+	showCountGroupsByOn($groupsSelector, 1);
+	showCountGroupsByOn($groupsSelector, 0);
 }catch(Exception $e){
 	echo $e->getMessage();
 }

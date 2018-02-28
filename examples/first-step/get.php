@@ -4,6 +4,7 @@
  * Для получения объектов и других типов данных используется оператор get.
  * В данном примере выведем лог банка пользователя (баланс) за последние 3 месяца
  * с сортировкой по дате (от последней к старой) в две таблицы - пополнения и списания.
+ *
  * https://topvisor.ru/api/v2/operators/get/
  * */
 
@@ -11,7 +12,7 @@ use Topvisor\TopvisorSDK\V2 as TV;
 
 include(__DIR__.'/../../autoload.php');
 
-$session = new TV\Session(); // создание сессии: https://topvisor.ru/api/v2/sdk-php/session/
+$TVSession = new TV\Session(); // создание сессии: https://topvisor.ru/api/v2/sdk-php/session/
 
 try{
 	$bankPaymentsFields = ['date', 'status', 'sum']; // запрашиваемые поля для лога пополнений
@@ -19,8 +20,8 @@ try{
 	$bankOrders = [TV\Fields::genOrderData('date', 'DESC')]; // массив с указанием полей для сортировки
 
 	// объект для построения запроса на получение данных: https://topvisor.ru/api/v2/sdk-php/pen/
-	$bankPayments = new TV\Pen($session, 'get', 'bank_2', 'payments');
-	$bankPayments->setFields($bankPaymentsFields); https://topvisor.ru/api/v2/basic-params/fields/
+	$bankPayments = new TV\Pen($TVSession, 'get', 'bank_2', 'payments');
+	$bankPayments->setFields($bankPaymentsFields); // https://topvisor.ru/api/v2/basic-params/fields/
 	$bankPayments->setLimit($bankLimit); // https://topvisor.ru/api/v2/basic-params/paging/
 	$bankPayments->setOrders($bankOrders); // https://topvisor.ru/api/v2/basic-params/orders/
 
@@ -28,7 +29,7 @@ try{
 
 	// будем получать по $bankLimit страниц, пока не получим все
 	do{
-		// выполнить образение у API
+		// выполнить обращение к API
 		$pageOfBankPayments = $bankPayments->exec();
 
 		// метод getErrorsString() вернёт все возникшие ошибки в одной строке
@@ -37,23 +38,23 @@ try{
 		// результат выполнения запроса, в данном случае это строки лога банка
 		$resultOfBankPayments = $pageOfBankPayments->getResult();
 
-		// построчнаый вывод лога банка
+		// построчный вывод лога банка
 		foreach($resultOfBankPayments as $payment){
 			echo "$payment->date;$payment->status;$payment->sum<br>\n";
 		}
 
-		// getNextOffset() offset для получениях следующей страинцы резульатов: https://topvisor.ru/api/v2/basic-params/paging/
-		// в случае, если получены все резульаты, getNextOffset() вернет пустое значение
+		// getNextOffset() offset для получениях следующей страницы результатов: https://topvisor.ru/api/v2/basic-params/paging/
+		// в случае, если получены все результаты, getNextOffset() вернёт пустое значение
 		$nextOffset = $pageOfBankPayments->getNextOffset();
 		if($nextOffset) $bankPayments->setOffset($nextOffset);
 	}while($nextOffset);
 
 	$bankHistoryFields = ['date', 'target', 'sum']; // запрашиваемые поля для лога списаний
 
-	$bankHistory = new TV\Pen($session, 'get', 'bank_2', 'history');
+	$bankHistory = new TV\Pen($TVSession, 'get', 'bank_2', 'history');
 	$bankHistory->setFields($bankHistoryFields);
-	$bankHistory->setLimit($bankPageLimit);
-	$bankHistory->setOrders($bankFilters);
+	$bankHistory->setLimit($bankLimit);
+	$bankHistory->setOrders($bankOrders);
 
 	echo "<br>\n";
 	echo "<b>дата списания;вид операции;сумма списания</b><br>\n";

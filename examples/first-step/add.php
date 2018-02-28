@@ -4,39 +4,36 @@
  * Для добавления объектов используется оператор add.
  * В данном примере добавим в проект одним запросом 3 включенных или выключенных группы и
  * выведем список добавленных групп со статусом вкл/выкл и общее число групп.
+ *
+ * https://topvisor.ru/api/v2/operators/get/
  * */
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
 include(__DIR__.'/../../autoload.php');
 
-// Создание сессии. Подробнее: https://dev.topvisor.ru/api/v2/sdk-php/session/
-$TVSession = new TV\Session();
+$TVSession = new TV\Session(); // создание сессии: https://topvisor.ru/api/v2/sdk-php/session/
 
-// введите id своего проекта
-$projectId = 2121417;
+$projectId = 2121417; // введите id своего проекта
 
 try{
-	// параметры запроса
 	$groupsAdderData = [
 		'project_id' => $projectId,
-		'name' => ['Крокодилы', 'Бегемоты', 'Зелёный попугай'],
+		'name' => ['Крокодилы', 'Бегемоты', 'Зелёные попугаи'],
 		'on' => rand(0, 1),
-	];
+	]; // массив с параметрами запроса
 	
-	// Объект для построения запроса. Подробнее: https://dev.topvisor.ru/api/v2/sdk-php/pen/
+	// объект для построения запроса на добавление данных: https://topvisor.ru/api/v2/sdk-php/pen/
 	$groupsAdder = new TV\Pen($TVSession, 'add', 'keywords_2', 'groups');
 	
-	// установка параметров запроса
 	$groupsAdder->setData($groupsAdderData);
 	
-	// выполнение запроса
-	$pageOfGroupsAdder = $groupsAdder->exec();
+	$pageOfGroupsAdder = $groupsAdder->exec(); // выполнить обращение к API
 	
 	// метод getErrorsString() вернёт все возникшие ошибки в одной строке
 	if($pageOfGroupsAdder->getErrors()) throw new \Exception($pageOfGroupsAdder->getErrorsString());
 	
-	// сохраним результат выполнения запроса - массив объектов
+	// результат выполнения запроса, в данном случае это массив с количеством добавленных групп
 	$resultOfAddedGroup = $pageOfGroupsAdder->getResult();
 	
 	// сохраним количество возвращённых объектов - добавленных групп
@@ -44,7 +41,7 @@ try{
 	
 	echo "<b>Добавлено $countOfAddedGroups новые группы:</b><br>\n";
 	
-	// для каждой добавленной группы выведем её имя и активность
+	// построчный вывод имени и активности каждой группы
 	foreach($resultOfAddedGroup as $addedGroup){
 		$switchedMessage = ($addedGroup->on)?'вкл.':'выкл.';
 		echo "\"$addedGroup->name\" $switchedMessage<br>\n";
@@ -52,13 +49,10 @@ try{
 	
 	// УЗНАЕМ ОБЩЕЕ КОЛИЧЕСТВО ГРУПП В ПРОЕКТЕ
 	$groupsSelectorData = ['project_id' => $projectId];
-	// так как нас интересует только количество групп, никакие поля не понадобятся
-	$groupsSelectorFields = [];
+	$groupsSelectorFields = ['COUNT(*)'];
 	
 	$groupsSelector = new TV\Pen($TVSession, 'get', 'keywords_2', 'groups');
-	
 	$groupsSelector->setData($groupsSelectorData);
-	// Для любого запроса с оператором get необходимо указывать поля. Подробнее: https://dev.topvisor.ru/api/v2/basic-params/fields/
 	$groupsSelector->setFields($groupsSelectorFields);
 	
 	$pageOfGroupsSelector = $groupsSelector->exec();
@@ -66,7 +60,7 @@ try{
 	if($pageOfGroupsSelector->getErrors()) throw new \Exception($pageOfGroupsSelector->getErrorsString());
 	
 	$resultOfGroupsSelector = $pageOfGroupsSelector->getResult();
-	$amountOfAllGroups = count($resultOfGroupsSelector);
+	$amountOfAllGroups = $resultOfGroupsSelector[0]->{'COUNT(*)'};
 	
 	echo "Всего в проекте $amountOfAllGroups групп";
 }catch(Exception $e){
