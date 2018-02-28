@@ -28,7 +28,7 @@ function showCountGroupsByOn($groupsSelector, int $on){
 	
 	// результат выполнения запроса, в данном случае это массив с количеством выбранных групп
 	$resultOfGroupsSelector = $pageOfGroupsSelector->getResult();
-	if(count($resultOfGroupsSelector)){
+	if ($resultOfGroupsSelector){
 		$amountOfGroups = $resultOfGroupsSelector[0]->{'COUNT(*)'};
 	}else{
 		$amountOfGroups = 0;
@@ -47,7 +47,6 @@ try{
 	
 	// объект для построения запроса на получение данных: https://topvisor.ru/api/v2/sdk-php/pen/
 	$groupsSelector = new TV\Pen($TVSession, 'get', 'keywords_2', 'groups');
-	
 	$groupsSelector->setData($groupsData);
 	$groupsSelector->setFields($groupsSelectorFields); // https://topvisor.ru/api/v2/basic-params/fields/
 	
@@ -59,7 +58,6 @@ try{
 	
 	// объект для построения запроса на изменение данных: https://topvisor.ru/api/v2/sdk-php/pen/
 	$groupsEditor = new TV\Pen($TVSession, 'edit', 'keywords_2', 'groups/on');
-	
 	$groupsEditor->setData($groupsData);
 	$groupsEditor->setFilters($groupsEditorFilters);
 	$pageOfGroupsEditor = $groupsEditor->exec();

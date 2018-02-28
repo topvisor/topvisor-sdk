@@ -45,7 +45,7 @@ try{
 	
 	// УЗНАЕМ ОБЩЕЕ КОЛИЧЕСТВО ГРУПП В ПРОЕКТЕ
 	$groupsSelectorData = ['project_id' => $projectId];
-	$groupsSelectorFields = ['COUNT(*)']; // Массив с указанием фильтра: // https://topvisor.ru/api/v2/basic-params/fields/
+	$groupsSelectorFields = ['COUNT(*)']; // Массив с указанием фильтра: https://topvisor.ru/api/v2/basic-params/fields/
 	
 	$groupsSelector = new TV\Pen($TVSession, 'get', 'keywords_2', 'groups');
 	$groupsSelector->setData($groupsSelectorData);
@@ -55,7 +55,7 @@ try{
 	if($pageOfGroupsSelector->getErrors()) throw new \Exception($pageOfGroupsSelector->getErrorsString());
 	
 	$resultOfGroupsSelector = $pageOfGroupsSelector->getResult();
-	if(count($resultOfGroupsSelector)){
+	if($resultOfGroupsSelector){
 		$amountOfAllGroups = $resultOfGroupsSelector[0]->{'COUNT(*)'};
 	}else{
 		$amountOfAllGroups = 0;
