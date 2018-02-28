@@ -44,7 +44,7 @@ class Pen{
 		$this->fieldsFilter = $fieldsFilter;
 	}
 
-	function serOrders(array $fieldsOrder){
+	function setOrders(array $fieldsOrder){
 		$this->fieldsOrder = $fieldsOrder;
 	}
 
