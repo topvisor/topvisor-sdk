@@ -1,4 +1,5 @@
-<?
+<?php
+
 /**
  * Описание работы с банком.
  * https://dev.topvisor.ru/api/v2-services/bank_2/
