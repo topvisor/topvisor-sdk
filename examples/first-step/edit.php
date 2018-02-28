@@ -18,11 +18,11 @@ $Session = new TV\Session();
 $projectId = 2121417;
 
 // выводит количество включённых или выключенных групп
-function showAmountOfGroups($switchOn){
+function showAmountOfGroups($switchedOn){
 	global $groupsSelector;
 	
 	// Создадим фильтр, проверяющий, включена ли группа. Подробнее о фильтрах: https://dev.topvisor.ru/api/v2/basic-params/filters/
-	$groupsFilters = [TV\Fields::genFilterData('on', 'EQUALS', [$switchOn])];
+	$groupsFilters = [TV\Fields::genFilterData('on', 'EQUALS', [$switchedOn])];
 	
 	// установим фильтры
 	$groupsSelector->setFilters($groupsFilters);
@@ -37,7 +37,7 @@ function showAmountOfGroups($switchOn){
 	$resultOfGroupsSelector = $pageOfGroupsSelector->getResult();
 	$countOfGroups = count($resultOfGroupsSelector);
 	
-	$switchMessage = ($switchOn)?'Включено':'Выключено';
+	$switchMessage = ($switchedOn)?'Включено':'Выключено';
 	
 	echo "$switchMessage <b>$countOfGroups</b> групп<br>\n";
 };
