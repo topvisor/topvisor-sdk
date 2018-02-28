@@ -30,6 +30,10 @@ class Session{
 		if(!$this->accessToken) throw new \Exception("Auth config: 'accessToken' is missing");
 	}
 
+	function getUserId(){
+		return $this->userId;
+	}
+
 	// only utf-8 is supported
 	function getHeadersForRequest(){
 		$headers = [
