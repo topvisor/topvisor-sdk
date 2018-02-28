@@ -3,7 +3,7 @@
 /**
  * Чтобы подобрать выбрать слова, состветствующие регулярному выражению,
  * воспользуйтесь параметром filters в методе keywords.
- * 
+ *
  * https://topvisor.ru/api/v2-services/keywords_2/keywords/get/
  * */
 
@@ -19,9 +19,7 @@ $projectId = 2121417; // введите id своего проекта
 try{
 	$keywordsSelectorData = ['project_id' => $projectId];
 	$keywordsSelectorFields = ['id', 'name', 'group_name'];
-	$keywordsSelectorFilter = [
-		TV\Fields::genFilterData('name', 'REGEXP', ['^фмл']),
-	];
+	$keywordsSelectorFilter = [TV\Fields::genFilterData('name', 'REGEXP', ['^фмл'])];
 
 	$keywordsSelector = new TV\Pen($Session, 'get', 'keywords_2', 'keywords');
 	$keywordsSelector->setData($keywordsSelectorData);
