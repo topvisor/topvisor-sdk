@@ -12,7 +12,6 @@ include(__DIR__.'/../../autoload.php');
 $TVSession = new TV\Session();
 $userId = $TVSession->getUserId();
 
-
 try{
 	$projectsFields = ['name', 'site', 'update', 'on'];
 	$projectsFiltersMyOwn = [TV\Fields::genFilterData('user_id', 'EQUALS', [$userId])]; // фильтры для своих проектов
