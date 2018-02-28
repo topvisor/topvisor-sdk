@@ -3,6 +3,7 @@
 /**
  * Чтобы подобрать выбрать слова, состветствующие регулярному выражению,
  * воспользуйтесь параметром filters в методе keywords.
+ * 
  * https://topvisor.ru/api/v2-services/keywords_2/keywords/get/
  * */
 
@@ -21,18 +22,18 @@ try{
 	$keywordsSelectorFilter = [
 		TV\Fields::genFilterData('name', 'REGEXP', ['^фмл']),
 	];
-	
+
 	$keywordsSelector = new TV\Pen($Session, 'get', 'keywords_2', 'keywords');
 	$keywordsSelector->setData($keywordsSelectorData);
 	$keywordsSelector->setFields($keywordsSelectorFields);
 	$keywordsSelector->setFilters($keywordsSelectorFilter);
-	
+
 	$pageOfKeywordsSelector = $keywordsSelector->exec();
-	
+
 	if($pageOfKeywordsSelector->getErrors()) throw new \Exception($pageOfKeywordsSelector->getErrorsString());
-	
+
 	$SelectedKeywords = $pageOfKeywordsSelector->getResult();
-	
+
 	echo "<b>id</b>;<b>name</b>;<b>group_name</b><br>\n";
 	foreach($SelectedKeywords as $keyword){
 		echo "id$keyword->id;\"$keyword->name\";\"$keyword->group_name\"<br>\n";

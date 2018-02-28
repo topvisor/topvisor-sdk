@@ -3,6 +3,7 @@
 /**
  * Для работы с проектом может потребоваться загрузка большого числа запросов.
  * В этом случае поможет метод keywords/import. Он добавит в нужную группу в папке ключевые слова из указаного файла.
+ * 
  * https://topvisor.ru/api/v2-services/keywords_2/keywords/add-import/
  * */
 
@@ -22,15 +23,15 @@ try{
 		'project_id' => $projectId,
 		'keywords' => $CSVFile,
 	];
-	
+
 	$keywordsImporter = new TV\Pen($Session, 'add', 'keywords_2', 'keywords/import');
 	$keywordsImporter->setData($keywordsImporterData);
 	$pageOfKeywordsImporter = $keywordsImporter->exec();
-	
+
 	if($pageOfKeywordsImporter->getErrors()) throw new \Exception($pageOfKeywordsImporter->getErrorsString());
-	
+
 	$resultOfKeywordsImporter = $pageOfKeywordsImporter->getResult();
-	
+
 	echo "
         Количество отправленных ключевых фраз: $resultOfKeywordsImporter->countSended<br>\n
         Количество найденных дублей: $resultOfKeywordsImporter->countDuplicated<br>\n
