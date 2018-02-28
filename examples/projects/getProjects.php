@@ -16,7 +16,7 @@ $TVSession = new TV\Session($auth);
 try{
 	$projectsFields = ['name', 'site', 'date', 'on'];
 	$projectsFiltersMyOwn = [TV\Fields::genFilterData('user_id', 'EQUALS', [$userId])]; // фильтры для своих проектов
-	$projectsFiltersGuest = [TV\Fields::genFilterData('user_id', 'NOT_EQUALS', [$userId])]; // Фильтры для гостевых проектов
+	$projectsFiltersGuest = [TV\Fields::genFilterData('user_id', 'NOT_EQUALS', [$userId])]; // фильтры для гостевых проектов
 	$projectsFiltersArchive = [TV\Fields::genFilterData('on', 'EQUALS', [-1])]; // фильтры для архивных проектов
 	
 	$projectsSelector = new TV\Pen($TVSession, 'get', 'projects_2', 'projects');
