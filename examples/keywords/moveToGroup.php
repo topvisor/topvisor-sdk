@@ -3,7 +3,7 @@
 /**
  * В ходе составления семантического ядра зачастую приходится перемещать ключевые фразы.
  * В данном примере перемещаются все слова, начинающиеся с буквы А в группу под названием А.
- * https://dev.topvisor.ru/api/v2-services/keywords_2/keywords/edit-move/
+ * https://topvisor.ru/api/v2-services/keywords_2/keywords/edit-move/
  * */
 
 use Topvisor\TopvisorSDK\V2 as TV;

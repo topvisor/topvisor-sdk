@@ -3,7 +3,7 @@
 /**
  * Чтобы подобрать выбрать слова, состветствующие регулярному выражению,
  * воспользуйтесь параметром filters в методе keywords.
- * https://dev.topvisor.ru/api/v2-services/keywords_2/keywords/get/
+ * https://topvisor.ru/api/v2-services/keywords_2/keywords/get/
  * */
 
 use Topvisor\TopvisorSDK\V2 as TV;

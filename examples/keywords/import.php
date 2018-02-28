@@ -3,7 +3,7 @@
 /**
  * Для работы с проектом может потребоваться загрузка большого числа запросов.
  * В этом случае поможет метод keywords/import. Он добавит в нужную группу в папке ключевые слова из указаного файла.
- * https://dev.topvisor.ru/api/v2-services/keywords_2/keywords/add-import/
+ * https://topvisor.ru/api/v2-services/keywords_2/keywords/add-import/
  * */
 
 use Topvisor\TopvisorSDK\V2 as TV;
