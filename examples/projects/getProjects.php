@@ -11,7 +11,7 @@ include(__DIR__.'/../../autoload.php');
 
 $userId = 9; // введите свой id
 
-$TVSession = new TV\Session($auth);
+$TVSession = new TV\Session();
 
 try{
 	$projectsFields = ['name', 'site', 'date', 'on'];
