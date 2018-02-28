@@ -28,17 +28,20 @@ function showCountGroupsByOn($groupsSelector, int $on){
 	
 	// результат выполнения запроса, в данном случае это массив с количеством выбранных групп
 	$resultOfGroupsSelector = $pageOfGroupsSelector->getResult();
-	$countOfGroups = $resultOfGroupsSelector[0]->{'COUNT(*)'};
+	if(count($resultOfGroupsSelector)){
+		$amountOfGroups = $resultOfGroupsSelector[0]->{'COUNT(*)'};
+	}else{
+		$amountOfGroups = 0;
+	}
 	$switchMessage = ($on)?'Включено':'Выключено';
 	
-	echo "$switchMessage <b>$countOfGroups</b> групп<br>\n";
+	echo "$switchMessage <b>$amountOfGroups</b> групп<br>\n";
 };
 
 try{
 	// массив с параметрами запроса
 	$groupsData = [
-		'project_id' => $projectId,
-		'on' => 1,
+		'project_id' => $projectId, 'on' => 1,
 	];
 	$groupsSelectorFields = ['COUNT(*)']; // запрашиваемые поля
 	
