@@ -11,24 +11,25 @@ use Topvisor\TopvisorSDK\V2 as TV;
 
 include(__DIR__.'/../../autoload.php');
 
-// создание сессии
-$Session = new TV\Session($auth);
+// Создание сессии. Подробнее: https://dev.topvisor.ru/api/v2/sdk-php/session/
+$Session = new TV\Session();
 
 try{
 	// поля, которые потребуются для таблицы пополнений
 	$bankPaymentsFields = ['date', 'status', 'sum'];
 	// размер страницы
-	$bankLimit = 100;
-	// фильтры для сортировки
+	$bankPageLimit = 100;
+	// фильтры для сортировки по убыванию по полю 'date'
 	$bankFilters = [TV\Fields::genOrderData('date', 'DESC')];
 	
+	// Объект для построения запроса. Подробнее: https://dev.topvisor.ru/api/v2/sdk-php/pen/
 	$bankPayments = new TV\Pen($Session, 'get', 'bank_2', 'payments');
 	
 	// Для любого запроса с оператором get необходимо указывать поля. Подробнее: https://dev.topvisor.ru/api/v2/basic-params/fields/
 	$bankPayments->setFields($bankPaymentsFields);
 	// Установим количество страниц, которое хотим получать. Подробнее: https://dev.topvisor.ru/api/v2/basic-params/paging/
-	$bankPayments->setLimit($bankLimit);
-	// Установим порядок следования
+	$bankPayments->setLimit($bankPageLimit);
+	// Установим порядок сортировки результата. Подробнее: https://dev.topvisor.ru/api/v2/basic-params/orders/
 	$bankPayments->serOrders($bankFilters);
 	
 	// выведем шапку таблицы
@@ -39,10 +40,11 @@ try{
 		// выполнение запроса
 		$pageOfBankPayments = $bankPayments->exec();
 		
+		// метод getErrorsString() вернёт все возникшие ошибки в одной строке
 		if($pageOfBankPayments->getErrors()) throw new \Exception($pageOfBankPayments->getErrorsString());
 		
-		// сохраним результат выполнения запроса
-		$resultOfBankPayments = $pageOfBankPayments->getResult(); // результат - массив с объектами
+		// сохраним результат выполнения запроса - массив объектов
+		$resultOfBankPayments = $pageOfBankPayments->getResult();
 		
 		// для каждого платежа из полученных в результате выведем интересующую информацию
 		foreach($resultOfBankPayments as $payment){
@@ -54,18 +56,16 @@ try{
 		if($nextOffset) $bankPayments->setOffset($nextOffset);
 	}while($nextOffset);
 	
-	echo "<br>\n";
-	
 	// поля, которые потребуются для таблицы списаний
 	$bankHistoryFields = ['date', 'target', 'sum'];
 	
 	$bankHistory = new TV\Pen($Session, 'get', 'bank_2', 'history');
 	
 	$bankHistory->setFields($bankHistoryFields);
-	$bankHistory->setLimit($bankLimit);
+	$bankHistory->setLimit($bankPageLimit);
 	$bankHistory->serOrders($bankFilters);
 	
-	// выведем шапку таблицы
+	echo "<br>\n";
 	echo "<b>дата списания;вид операции;сумма списания</b><br>\n";
 	
 	do{
