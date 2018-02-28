@@ -12,7 +12,6 @@ include(__DIR__.'/../../autoload.php');
 $TVSession = new TV\Session();
 $userId = $TVSession->getUserId();
 
-
 try{
 	$projectsFields = ['name', 'site', 'update', 'on'];
 	$projectsFiltersMyOwn = [TV\Fields::genFilterData('user_id', 'EQUALS', [$userId])]; // фильтры для своих проектов
@@ -20,7 +19,6 @@ try{
 	$projectsFiltersArchive = [TV\Fields::genFilterData('on', 'EQUALS', [-1])]; // фильтры для архивных проектов
 	
 	$projectsSelector = new TV\Pen($TVSession, 'get', 'projects_2', 'projects');
-	
 	$projectsSelector->setFields($projectsFields);
 	
 	// Найдём и выведем свои проекты
@@ -58,7 +56,7 @@ try{
 	
 	$resultOfProjectsSelector = $pageOfProjectsSelector->getResult();
 	echo "<br>\n";
-	echo "<b>Архивные</b><br>\n";
+	echo "<b>Архивные проекты:</b><br>\n";
 	echo "<b>Имя проекта (сайт), время последней проверки позиций</b><br>\n";
 	foreach($resultOfProjectsSelector as $project){
 		echo "$project->name ($project->site), $project->update<br>\n";
