@@ -31,7 +31,6 @@ class Session{
 	}
 
 	function getUserId(){
-		//
 		return $this->userId;
 	}
 
