@@ -48,10 +48,7 @@ try{
 	$resultOfKeywordsSelector = $pageOfKeywordsSelector->getResult(); // результат выполнения запроса, массив выбранных ключевых слов
 	
 	foreach($resultOfKeywordsSelector as $selectedKeyword){
-		$volumeSPb = $selectedKeyword->$spbVolumeField;
-		$volumeMsk = $selectedKeyword->$mskVolumeField;
-		$volumeRF = $selectedKeyword->$rfVolumeField;
-		echo "топвизор - $volumeSPb / $volumeMsk / $volumeRF<br>\n";
+		echo "топвизор - $selectedKeyword->$spbVolumeField / $selectedKeyword->$mskVolumeField / $selectedKeyword->$rfVolumeField<br>\n";
 	}
 }catch(Exception $e){
 	echo $e->getMessage();
