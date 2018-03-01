@@ -29,6 +29,7 @@ try{
 	$searcherKey = 0; // ключ ПС Яндекс
 	$frequencyType = 6; // форма частоты "[!Ч]"
 	
+	// описание поля volume и других полей можно посмотреть тут: https://topvisor.ru/api/v2/fields/
 	$spbVolumeField = "volume:$spbRegionId:$searcherKey:$frequencyType";
 	$mskVolumeField = "volume:$mskRegionId:$searcherKey:$frequencyType";
 	$rfVolumeField = "volume:$rfRegionId:$searcherKey:$frequencyType";
