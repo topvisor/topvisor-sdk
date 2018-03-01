@@ -37,11 +37,13 @@ try{
 	if($pageOfKeywordsSelector->getErrors()) throw new \Exception($pageOfKeywordsSelector->getErrorsString());
 	
 	$resultOfKeywordsSelector = $pageOfKeywordsSelector->getResult(); // результат выполнения запроса, массив выбранных ключевых слов
-	$selectedKeyword = $resultOfKeywordsSelector[0];
-	$frequencySPb = $selectedKeyword->{'volume:2:0:6'};
-	$frequencyMsk = $selectedKeyword->{'volume:213:0:6'};
-	$frequencyRF = $selectedKeyword->{'volume:225:0:6'};
-	echo "топвизор $frequencySPb / $frequencyMsk / $frequencyRF<br>\n";
+	
+	foreach($resultOfKeywordsSelector as $selectedKeyword){
+		$frequencySPb = $selectedKeyword->{'volume:2:0:6'};
+		$frequencyMsk = $selectedKeyword->{'volume:213:0:6'};
+		$frequencyRF = $selectedKeyword->{'volume:225:0:6'};
+		echo "топвизор - $frequencySPb / $frequencyMsk / $frequencyRF<br>\n";
+	}
 }catch(Exception $e){
 	echo $e->getMessage();
 }
