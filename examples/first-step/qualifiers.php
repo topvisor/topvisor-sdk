@@ -27,12 +27,12 @@ try{
 	$mskRegionId = 213; // id Москвы
 	$rfRegionId = 225; // id России
 	$searcherKey = 0; // ключ ПС Яндекс
-	$frequencyType = 6; // форма частоты "[!Ч]"
+	$volumeType = 6; // форма частоты "[!Ч]"
 	
 	// описание поля volume и других полей можно посмотреть тут: https://topvisor.ru/api/v2/fields/
-	$spbVolumeField = "volume:$spbRegionId:$searcherKey:$frequencyType";
-	$mskVolumeField = "volume:$mskRegionId:$searcherKey:$frequencyType";
-	$rfVolumeField = "volume:$rfRegionId:$searcherKey:$frequencyType";
+	$spbVolumeField = "volume:$spbRegionId:$searcherKey:$volumeType";
+	$mskVolumeField = "volume:$mskRegionId:$searcherKey:$volumeType";
+	$rfVolumeField = "volume:$rfRegionId:$searcherKey:$volumeType";
 	
 	$keywordsSelectorFields = ['name', $spbVolumeField, $mskVolumeField, $rfVolumeField];
 	$keywordsSelectorFilter = [TV\Fields::genFilterData('name', 'EQUALS', ['топвизор'])]; // массив с указанием фильтра
