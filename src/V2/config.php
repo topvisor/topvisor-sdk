@@ -1,4 +1,4 @@
 <?php
 
 $userId = ''; // Enter your user id
-$accessToken = ''; // Enter your API Key 1234
+$accessToken = ''; // Enter your API Key 12345
