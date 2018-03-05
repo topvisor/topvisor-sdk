@@ -34,7 +34,7 @@ try{
 	$projectName = $selectedRegion->name;
 	$searchers = $selectedRegion->searchers;
 	
-	// массив индексов регионов ассиативный, чтобы избежать повторений индексов
+	// массив индексов регионов ассоциативный, чтобы избежать повторений индексов
 	$regionsArray = [];
 	
 	foreach($searchers as $searchSystem){
