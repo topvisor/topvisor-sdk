@@ -9,13 +9,9 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
-$auth = [
-	'userId' => 9, 'accessToken' => '59c186ba6acd0954c550',
-];
-
 include(__DIR__.'/../../autoload.php');
 
-$TVSession = new TV\Session($auth);
+$TVSession = new TV\Session();
 
 $projectId = 1733522; // введите id своего проекта
 try{
@@ -23,7 +19,8 @@ try{
 	$regions_indexes = [];
 	
 	$regionsSelectorData = [
-		'id' => $projectId, 'show_searchers_and_regions' => 1,
+		'id' => $projectId,
+		'show_searchers_and_regions' => 1,
 	];
 	
 	$regionsSelector = new TV\Pen($TVSession, 'get', 'projects_2', 'projects');
@@ -47,8 +44,13 @@ try{
 	
 	// получаем позиции для всех регионов проекта
 	$positionSelectorData = [
-		'project_id'        => $projectId, 'regions_indexes' => $regions_indexes, 'date1' => '0001-01-01', 'date2' => date('Y-m-d'),
-		'show_exists_dates' => 1, 'show_headers' => 1,
+		'project_id'        => $projectId,
+		'regions_indexes' => $regions_indexes,
+		'date1' => '0001-01-01',
+		'date2' => date('Y-m-d'),
+		'show_exists_dates' => 1,
+		'show_headers' => 1,
+		'count_dates' => 10,
 	];
 	
 	$positionsSelector = new TV\Pen($TVSession, 'get', 'positions_2', 'history');
@@ -61,20 +63,19 @@ try{
 	$projects = $pageOfPositionsSelector->getResult()->headers->projects;
 	$keywords = $pageOfPositionsSelector->getResult()->keywords;
 	
-	echo '<table border=\"1\">';
+	echo '<table border="1">';
 	echo '<tr>';
 	echo '<th>Ключевое слово</th>';
-	for($i = 0; $i < 10; $i++){
-		echo "<th>$dates[$i]";
+	foreach($dates as $date){
+		echo "<th>$date</th>";
 	}
-	echo '</th>';
 	
 	foreach($projects as $project){
 		$projectName = $project->name;
 		foreach($project->searchers as $searcher){
 			foreach($searcher->regions as $searcherRegion){
 				echo '<tr>';
-				echo '<td colspan=11 align=center>';
+				echo '<td colspan="11" align="center">';
 				echo "Проект \"$projectName\", $searcherRegion->name, $searcher->name ($searcherRegion->lang, $searcherRegion->device_name)";
 				echo '</td>';
 				foreach($keywords as $keyword){
@@ -82,13 +83,17 @@ try{
 					echo "<td>$keyword->name</td>";
 					for($i = 0; $i < 10; $i++){
 						$positionField = "$dates[$i]:$project->id:$searcherRegion->index";
-						$pos = (isset($keyword->positionsData->$positionField->position))?$keyword->positionsData->$positionField->position:'';
+						if(isset($keyword->positionsData->$positionField->position)){
+							$pos = ($keyword->positionsData->$positionField->position)?$keyword->positionsData->$positionField->position:'--';
+						}else{
+							$pos = '';
+						}
 						echo "<td>$pos</td>";
 					}
 				}
 				echo '</tr>';
 			}
-			echo '</table';
+			echo '</table>';
 		}
 	}
 }catch(Exception $e){
