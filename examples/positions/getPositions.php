@@ -9,9 +9,13 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
+$auth = [
+	'userId' => 9, 'accessToken' => '59c186ba6acd0954c550',
+];
+
 include(__DIR__.'/../../autoload.php');
 
-$TVSession = new TV\Session();
+$TVSession = new TV\Session($auth);
 
 $projectId = 1733522; // введите id своего проекта
 try{
@@ -54,36 +58,37 @@ try{
 	if($pageOfPositionsSelector->getErrors()) throw new \Exception($pageOfPositionsSelector->getErrorsString());
 	
 	$dates = $pageOfPositionsSelector->getResult()->headers->dates;
-	$project = $pageOfPositionsSelector->getResult()->headers->projects[0];
+	$projects = $pageOfPositionsSelector->getResult()->headers->projects;
 	$keywords = $pageOfPositionsSelector->getResult()->keywords;
 	
-	echo "<table border=\"1\">";
-	echo "<tr>";
-	echo "<th>Ключевое слово";
+	echo '<table border=\"1\">';
+	echo '<tr>';
+	echo '<th>Ключевое слово</th>';
 	for($i = 0; $i < 10; $i++){
 		echo "<th>$dates[$i]";
 	}
+	echo '</th>';
 	
-	$projectName = $project->name;
-	foreach($project->searchers as $searcher){
-		foreach($searcher->regions as $searcherRegion){
-			echo "<tr>";
-			echo "<td colspan=\"11\" align=\"center\"> Проект \"$projectName\", $searcherRegion->name,
-				$searcher->name ($searcherRegion->lang, $searcherRegion->device_name)";
-			
-			foreach($keywords as $keyword){
-				echo "<tr>";
-				echo "<td>$keyword->name";
-				for($i = 0; $i < 10; $i++){
-					$positionField = "$dates[$i]:$project->id:$searcherRegion->index";
-					if(isset($keyword->positionsData->$positionField->position)){
-						$pos = $keyword->positionsData->$positionField->position;
-					}else{
-						$pos = '';
+	foreach($projects as $project){
+		$projectName = $project->name;
+		foreach($project->searchers as $searcher){
+			foreach($searcher->regions as $searcherRegion){
+				echo '<tr>';
+				echo '<td colspan=11 align=center>';
+				echo "Проект \"$projectName\", $searcherRegion->name, $searcher->name ($searcherRegion->lang, $searcherRegion->device_name)";
+				echo '</td>';
+				foreach($keywords as $keyword){
+					echo '<tr>';
+					echo "<td>$keyword->name</td>";
+					for($i = 0; $i < 10; $i++){
+						$positionField = "$dates[$i]:$project->id:$searcherRegion->index";
+						$pos = (isset($keyword->positionsData->$positionField->position))?$keyword->positionsData->$positionField->position:'';
+						echo "<td>$pos</td>";
 					}
-					echo "<td>$pos";
 				}
+				echo '</tr>';
 			}
+			echo '</table';
 		}
 	}
 }catch(Exception $e){
