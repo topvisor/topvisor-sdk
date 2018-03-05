@@ -9,6 +9,7 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
+
 include(__DIR__.'/../../autoload.php');
 
 $TVSession = new TV\Session();
@@ -44,7 +45,6 @@ try{
 	}
 	
 	$positionsSelector = new TV\Pen($TVSession, 'get', 'positions_2', 'history');
-	
 	// вывод таблицы для каждого региона
 	foreach($regionsArray as $region){
 		$positionSelectorData = [
@@ -57,11 +57,14 @@ try{
 		];
 		
 		$positionsSelector->setData($positionSelectorData);
+		
 		$pageOfPositionsSelector = $positionsSelector->exec();
 		
 		if($pageOfPositionsSelector->getErrors()) throw new \Exception($pageOfPositionsSelector->getErrorsString());
 		
 		$resultOfPositionsSelector = $pageOfPositionsSelector->getResult();
+		
+		//var_dump($resultOfPositionsSelector);
 		
 		// если не было дат проверок, переходим к следующему региону
 		if(!count($resultOfPositionsSelector->existsDates)) continue;
@@ -71,22 +74,26 @@ try{
 				$searcherName = $searcher->name;
 				foreach($searcher->regions as $region){
 					$regionName = $region->name;
+					$regionLanguage = $region->lang;
+					$regionDevice = $region->device_name;
 				}
 			}
 		}
 		
 		// вывод шапки таблицы
 		echo "<table border=\"1\">";
-		echo "<caption> Проект \"$projectName\", регион $regionName, ПС $searcherName";
+		echo "<caption> Проект \"$projectName\", регион $regionName, ПС $searcherName (язык $regionLanguage, устройство $regionDevice)";
 		echo "<tr>";
 		echo "<th>Ключевая фраза</th>";
+		
+		//var_dump($resultOfPositionsSelector->existsDates);
 		
 		// перевернём массив дат, чтобы вывести последние
 		$dates = array_reverse($resultOfPositionsSelector->existsDates);
 		
 		// соберём вес поля в массив. чтобы потом выполнить один запрос со всеми полями
 		$positionsFields = [];
-		for($i = 0; ($i < 10) && ($i < count($dates)); $i++){
+		for($i = 0; (($i < 10) && ($i < count($dates))); $i++){
 			echo "<td>$dates[$i]</td>";
 			$positionField = "position:$dates[$i]:$projectId:$region->index";
 			array_push($positionsFields, $positionField);
@@ -108,7 +115,7 @@ try{
 				echo "<td>$positionsOnDate</td>";
 			}
 		}
-		echo "</table>";
+		echo "</table><br>\n";
 	}
 }catch(Exception $e){
 	echo $e->getMessage();
