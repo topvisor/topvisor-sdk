@@ -1,21 +1,19 @@
 <?php
 /**
- * Для редактирования объектов используется оператор edit.
- * В данном примере отобразим количество включенных и выключенных групп проекта.
- * Затем включим все выключенные группы проекта и снова отобразим количество включенных и выключенных групп.
+ * Для получения списка позиций используется оператор get.
+ * В данном примере получим список регионов проекта, а затем выведем 10 последних
+ * проверок по каждому из них.
  *
- * https://topvisor.ru/api/v2/operators/edit/
+ * https://topvisor.ru/api/v2-services/positions_2/get-history/
  * */
 
 use Topvisor\TopvisorSDK\V2 as TV;
-
 
 include(__DIR__.'/../../autoload.php');
 
 $TVSession = new TV\Session();
 
 $projectId = 1733522; // введите id своего проекта
-
 try{
 	$regionsSelectorData = ['show_searchers_and_regions' => 1];
 	$regionsSelectorFilters = [TV\Fields::genFilterData('id', 'EQUALS', [$projectId])]; // массив с указанием фильтра
@@ -44,7 +42,6 @@ try{
 			$regionsArray[$region->name] = $region->index;
 		}
 	}
-	$positionsSelectorFields = ['name'];
 	
 	$positionsSelector = new TV\Pen($TVSession, 'get', 'positions_2', 'history');
 	
@@ -60,7 +57,6 @@ try{
 		];
 		
 		$positionsSelector->setData($positionSelectorData);
-		$positionsSelector->setFields($positionsSelectorFields);
 		$pageOfPositionsSelector = $positionsSelector->exec();
 		
 		if($pageOfPositionsSelector->getErrors()) throw new \Exception($pageOfPositionsSelector->getErrorsString());
@@ -90,7 +86,7 @@ try{
 		
 		// соберём вес поля в массив. чтобы потом выполнить один запрос со всеми полями
 		$positionsFields = [];
-		for($i = 0; $i < 10; $i++){
+		for($i = 0; ($i < 10) && ($i < count($dates)); $i++){
 			echo "<td>$dates[$i]</td>";
 			$positionField = "position:$dates[$i]:$projectId:$region->index";
 			array_push($positionsFields, $positionField);
@@ -98,6 +94,9 @@ try{
 		
 		$positionsSelector->setFields($positionsFields);
 		$pageOfPositionsSelector = $positionsSelector->exec();
+		
+		if($pageOfPositionsSelector->getErrors()) throw new \Exception($pageOfPositionsSelector->getErrorsString());
+		
 		$resultOfPositionsSelector = $pageOfPositionsSelector->getResult();
 		$keywords = $resultOfPositionsSelector->keywords;
 		
