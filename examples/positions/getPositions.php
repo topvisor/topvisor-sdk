@@ -73,7 +73,7 @@ try{
 		echo "<th>$date</th>";
 	}
 	echo '</tr>';
-	$amountOfColumns = $amountOfDates + 1;
+	$amountOfColumns = count($dates) + 1;
 	
 	// проекты (и конкуренты проекта)
 	foreach($projects as $project){

@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca5d349b-9d8d-4d29-a6a3-3760aaa4237b" name="Default" comment="no commit message">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/php.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/topvisor-sdk.iml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/webServers.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/examples/positions/getPositions.php" afterPath="$PROJECT_DIR$/examples/positions/getPositions.php" />
     </list>
     <ignored path="src/V2/config.php" />
@@ -28,10 +21,11 @@
       <file leaf-file-name="getPositions.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/positions/getPositions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="36" column="38" lean-forward="false" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+            <state relative-caret-position="315">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
-                <element signature="e#6#254#0#PHP" expanded="true" />
+                <element signature="e#7#255#0#PHP" expanded="true" />
+                <marker date="1520350245161" expanded="true" signature="2553:2565" ph="..." />
               </folding>
             </state>
           </provider>
@@ -40,7 +34,7 @@
       <file leaf-file-name="qualifiers.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/first-step/qualifiers.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
+            <state relative-caret-position="756">
               <caret line="43" column="4" lean-forward="false" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="110" />
               <folding />
             </state>
@@ -123,6 +117,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -169,7 +164,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -234,105 +228,8 @@
       <workItem from="1519798858041" duration="35203000" />
       <workItem from="1519902070996" duration="21324000" />
       <workItem from="1519995037414" duration="15072000" />
-      <workItem from="1520241259178" duration="16488000" />
-    </task>
-    <task id="LOCAL-00008" summary="basicOperations and import seems to be correct">
-      <created>1519627152306</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1519627152306</updated>
-    </task>
-    <task id="LOCAL-00009" summary="basicOperations, import and sort fixed">
-      <created>1519630887229</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1519630887229</updated>
-    </task>
-    <task id="LOCAL-00010" summary="no commit message">
-      <created>1519632527363</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1519632527363</updated>
-    </task>
-    <task id="LOCAL-00011" summary="no commit message">
-      <created>1519632876171</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1519632876171</updated>
-    </task>
-    <task id="LOCAL-00012" summary="no commit message">
-      <created>1519633045884</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1519633045884</updated>
-    </task>
-    <task id="LOCAL-00013" summary="no commit message">
-      <created>1519634101778</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1519634101778</updated>
-    </task>
-    <task id="LOCAL-00014" summary="no commit message">
-      <created>1519634456379</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1519634456379</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Attempt to complete keywords folder #1">
-      <created>1519636909547</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1519636909547</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Attempt to complete keywords folder #2">
-      <created>1519638094007</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1519638094007</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Attempt to complete keywords folder #3">
-      <created>1519645299351</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1519645299351</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Added group selection for sorting">
-      <created>1519649142751</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1519649142751</updated>
-    </task>
-    <task id="LOCAL-00019" summary="No commit message">
-      <created>1519649965277</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1519649965277</updated>
-    </task>
-    <task id="LOCAL-00020" summary="No commit message">
-      <created>1519652126640</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1519652126640</updated>
-    </task>
-    <task id="LOCAL-00021" summary="No commit message">
-      <created>1519652553007</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1519652553007</updated>
+      <workItem from="1520241259178" duration="28555000" />
+      <workItem from="1520342611397" duration="6155000" />
     </task>
     <task id="LOCAL-00022" summary="No commit message">
       <created>1519652644685</created>
@@ -579,11 +476,109 @@
       <option name="project" value="LOCAL" />
       <updated>1520257840178</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="no commit message">
+      <created>1520257951273</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1520257951273</updated>
+    </task>
+    <task id="LOCAL-00058" summary="no commit message">
+      <created>1520259940712</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1520259940712</updated>
+    </task>
+    <task id="LOCAL-00059" summary="no commit message">
+      <created>1520265932843</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1520265932843</updated>
+    </task>
+    <task id="LOCAL-00060" summary="no commit message">
+      <created>1520269191051</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1520269191051</updated>
+    </task>
+    <task id="LOCAL-00061" summary="no commit message">
+      <created>1520270661389</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1520270661389</updated>
+    </task>
+    <task id="LOCAL-00062" summary="no commit message">
+      <created>1520342953501</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1520342953501</updated>
+    </task>
+    <task id="LOCAL-00063" summary="no commit message">
+      <created>1520343120576</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1520343120576</updated>
+    </task>
+    <task id="LOCAL-00064" summary="no commit message">
+      <created>1520343222592</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1520343222592</updated>
+    </task>
+    <task id="LOCAL-00065" summary="no commit message">
+      <created>1520343797341</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1520343797341</updated>
+    </task>
+    <task id="LOCAL-00066" summary="no commit message">
+      <created>1520344437071</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1520344437071</updated>
+    </task>
+    <task id="LOCAL-00067" summary="no commit message">
+      <created>1520344644466</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1520344644466</updated>
+    </task>
+    <task id="LOCAL-00068" summary="no commit message">
+      <created>1520347119406</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1520347119406</updated>
+    </task>
+    <task id="LOCAL-00069" summary="no commit message">
+      <created>1520348216827</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1520348216827</updated>
+    </task>
+    <task id="LOCAL-00070" summary="no commit message">
+      <created>1520348461974</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1520348461974</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159419000" />
+    <option name="totallyTimeSpent" value="177641000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -1026,7 +1021,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/first-step/qualifiers.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
+        <state relative-caret-position="756">
           <caret line="43" column="4" lean-forward="false" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="110" />
           <folding />
         </state>
@@ -1034,10 +1029,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/positions/getPositions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="36" column="38" lean-forward="false" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+        <state relative-caret-position="315">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
-            <element signature="e#6#254#0#PHP" expanded="true" />
+            <element signature="e#7#255#0#PHP" expanded="true" />
+            <marker date="1520350245161" expanded="true" signature="2553:2565" ph="..." />
           </folding>
         </state>
       </provider>
