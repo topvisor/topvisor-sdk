@@ -73,7 +73,7 @@ try{
 		echo "<th>$date</th>";
 	}
 	echo '</tr>';
-	$amountOfDates += 1;
+	$amountOfColumns = $amountOfDates + 1;
 	
 	// проекты (и конкуренты проекта)
 	foreach($projects as $project){
@@ -84,7 +84,7 @@ try{
 			// регионы поисковика
 			foreach($searcher->regions as $searcherRegion){
 				echo '<tr>';
-				echo "<td colspan=\"$amountOfDates\" align=\"center\">";
+				echo "<td colspan=\"$amountOfColumns\" align=\"center\">";
 				echo "Проект \"$projectName\", $searcherRegion->name, $searcher->name ($searcherRegion->lang, $searcherRegion->device_name)";
 				echo '</td>';
 				echo '</tr>';
