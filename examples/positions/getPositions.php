@@ -88,6 +88,8 @@ try{
 				foreach($keywords as $keyword){
 					echo '<tr>';
 					echo "<td>$keyword->name</td>";
+					
+					// даты проекта
 					foreach($dates as $date){
 						$positionField = "$date:$project->id:$searcherRegion->index";
 						if(isset($keyword->positionsData->$positionField->position)){
