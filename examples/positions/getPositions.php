@@ -93,7 +93,6 @@ try{
 					}
 					echo '</tr>';
 				}
-				echo '</tr>';
 			}
 		}
 		echo '</table>';
