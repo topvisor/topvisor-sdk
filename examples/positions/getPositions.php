@@ -9,7 +9,6 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
-
 include(__DIR__.'/../../autoload.php');
 
 $TVSession = new TV\Session();
@@ -79,7 +78,7 @@ try{
 				echo '<tr>';
 				echo '<td colspan="11" align="center">';
 				echo "Проект \"$projectName\", $searcherRegion->name, $searcher->name ($searcherRegion->lang, $searcherRegion->device_name)";
-				echo '</td>';
+				echo '</td></tr>';
 				foreach($keywords as $keyword){
 					echo '<tr>';
 					echo "<td>$keyword->name</td>";
