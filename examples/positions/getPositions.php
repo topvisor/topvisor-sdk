@@ -19,7 +19,8 @@ try{
 	$regions_indexes = [];
 	
 	$regionsSelectorData = [
-		'id' => $projectId, 'show_searchers_and_regions' => 1,
+		'id' => $projectId,
+		'show_searchers_and_regions' => 1,
 	];
 	
 	$regionsSelector = new TV\Pen($TVSession, 'get', 'projects_2', 'projects');
@@ -43,8 +44,13 @@ try{
 	
 	// получаем позиции для всех регионов проекта
 	$positionSelectorData = [
-		'project_id'        => $projectId, 'regions_indexes' => $regions_indexes, 'date1' => '0001-01-01', 'date2' => date('Y-m-d'),
-		'show_exists_dates' => 1, 'show_headers' => 1, 'count_dates' => 10,
+		'project_id'        => $projectId,
+		'regions_indexes' => $regions_indexes,
+		'date1' => '0001-01-01',
+		'date2' => date('Y-m-d'),
+		'show_exists_dates' => 1,
+		'show_headers' => 1,
+		'count_dates' => 10,
 	];
 	
 	$positionsSelector = new TV\Pen($TVSession, 'get', 'positions_2', 'history');
@@ -65,14 +71,20 @@ try{
 	}
 	echo '</tr>';
 	
+	// проекты (и конкуренты проекта)
 	foreach($projects as $project){
 		$projectName = $project->name;
+		
+		// поисковики проекта
 		foreach($project->searchers as $searcher){
+			// регионы поисковика
 			foreach($searcher->regions as $searcherRegion){
 				echo '<tr>';
 				echo '<td colspan="11" align="center">';
 				echo "Проект \"$projectName\", $searcherRegion->name, $searcher->name ($searcherRegion->lang, $searcherRegion->device_name)";
 				echo '</td></tr>';
+				
+				// ключевые фразы проекта
 				foreach($keywords as $keyword){
 					echo '<tr>';
 					echo "<td>$keyword->name</td>";
