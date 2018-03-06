@@ -82,7 +82,8 @@ try{
 				echo '<tr>';
 				echo '<td colspan="11" align="center">';
 				echo "Проект \"$projectName\", $searcherRegion->name, $searcher->name ($searcherRegion->lang, $searcherRegion->device_name)";
-				echo '</td></tr>';
+				echo '</td>';
+				echo '</tr>';
 				
 				// ключевые фразы проекта
 				foreach($keywords as $keyword){
