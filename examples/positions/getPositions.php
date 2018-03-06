@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Для получения списка позиций используется оператор get.
  * В данном примере получим список регионов проекта, а затем выведем 10 последних
@@ -17,7 +18,6 @@ $projectId = 1733522; // введите id своего проекта
 try{
 	// получение списка регионов проекта (regions_indexes)
 	$regions_indexes = [];
-	
 	$regionsSelectorData = [
 		'id' => $projectId,
 		'show_searchers_and_regions' => 1,
@@ -42,6 +42,9 @@ try{
 		}
 	}
 	
+	// количество запрашиваемых дат проверок
+	$amountOfDates = 10;
+	
 	// получаем позиции для всех регионов проекта
 	$positionSelectorData = [
 		'project_id'        => $projectId,
@@ -50,7 +53,7 @@ try{
 		'date2' => date('Y-m-d'),
 		'show_exists_dates' => 1,
 		'show_headers' => 1,
-		'count_dates' => 10,
+		'count_dates' => $amountOfDates,
 	];
 	
 	$positionsSelector = new TV\Pen($TVSession, 'get', 'positions_2', 'history');
@@ -70,6 +73,7 @@ try{
 		echo "<th>$date</th>";
 	}
 	echo '</tr>';
+	$amountOfDates += 1;
 	
 	// проекты (и конкуренты проекта)
 	foreach($projects as $project){
@@ -80,7 +84,7 @@ try{
 			// регионы поисковика
 			foreach($searcher->regions as $searcherRegion){
 				echo '<tr>';
-				echo '<td colspan="11" align="center">';
+				echo "<td colspan=\"$amountOfDates\" align=\"center\">";
 				echo "Проект \"$projectName\", $searcherRegion->name, $searcher->name ($searcherRegion->lang, $searcherRegion->device_name)";
 				echo '</td>';
 				echo '</tr>';
@@ -90,11 +94,11 @@ try{
 					echo '<tr>';
 					echo "<td>$keyword->name</td>";
 					
-					// даты проекта
+					//  запрашиваемые даты проверок позиций
 					foreach($dates as $date){
-						$positionField = "$date:$project->id:$searcherRegion->index";
-						if(isset($keyword->positionsData->$positionField->position)){
-							$pos = ($keyword->positionsData->$positionField->position)?$keyword->positionsData->$positionField->position:'--';
+						$qualifiers = "$date:$project->id:$searcherRegion->index";
+						if(isset($keyword->positionsData->$qualifiers->position)){
+							$pos = ($keyword->positionsData->$qualifiers->position)?$keyword->positionsData->$qualifiers->position:'--';
 						}else{
 							$pos = '';
 						}
