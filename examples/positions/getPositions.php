@@ -42,18 +42,15 @@ try{
 		}
 	}
 	
-	// количество запрашиваемых дат проверок
-	$amountOfDates = 10;
-	
 	// получаем позиции для всех регионов проекта
 	$positionSelectorData = [
 		'project_id'        => $projectId,
 		'regions_indexes' => $regions_indexes,
 		'date1' => '0001-01-01',
 		'date2' => date('Y-m-d'),
+		'count_dates' => 10,
 		'show_exists_dates' => 1,
 		'show_headers' => 1,
-		'count_dates' => $amountOfDates,
 	];
 	
 	$positionsSelector = new TV\Pen($TVSession, 'get', 'positions_2', 'history');
@@ -77,15 +74,13 @@ try{
 	
 	// проекты (и конкуренты проекта)
 	foreach($projects as $project){
-		$projectName = $project->name;
-		
 		// поисковики проекта
 		foreach($project->searchers as $searcher){
 			// регионы поисковика
 			foreach($searcher->regions as $searcherRegion){
 				echo '<tr>';
 				echo "<td colspan=\"$amountOfColumns\" align=\"center\">";
-				echo "Проект \"$projectName\", $searcherRegion->name, $searcher->name ($searcherRegion->lang, $searcherRegion->device_name)";
+				echo "Проект \"$project->name\", $searcherRegion->name, $searcher->name ($searcherRegion->lang, $searcherRegion->device_name)";
 				echo '</td>';
 				echo '</tr>';
 				
@@ -94,7 +89,7 @@ try{
 					echo '<tr>';
 					echo "<td>$keyword->name</td>";
 					
-					//  запрашиваемые даты проверок позиций
+					//  найденные даты проверок позиций
 					foreach($dates as $date){
 						$qualifiers = "$date:$project->id:$searcherRegion->index";
 						if(isset($keyword->positionsData->$qualifiers->position)){
