@@ -19,8 +19,7 @@ try{
 	$regions_indexes = [];
 	
 	$regionsSelectorData = [
-		'id' => $projectId,
-		'show_searchers_and_regions' => 1,
+		'id' => $projectId, 'show_searchers_and_regions' => 1,
 	];
 	
 	$regionsSelector = new TV\Pen($TVSession, 'get', 'projects_2', 'projects');
@@ -44,13 +43,8 @@ try{
 	
 	// получаем позиции для всех регионов проекта
 	$positionSelectorData = [
-		'project_id'        => $projectId,
-		'regions_indexes' => $regions_indexes,
-		'date1' => '0001-01-01',
-		'date2' => date('Y-m-d'),
-		'show_exists_dates' => 1,
-		'show_headers' => 1,
-		'count_dates' => 10,
+		'project_id'        => $projectId, 'regions_indexes' => $regions_indexes, 'date1' => '0001-01-01', 'date2' => date('Y-m-d'),
+		'show_exists_dates' => 1, 'show_headers' => 1, 'count_dates' => 10,
 	];
 	
 	$positionsSelector = new TV\Pen($TVSession, 'get', 'positions_2', 'history');
@@ -82,8 +76,8 @@ try{
 				foreach($keywords as $keyword){
 					echo '<tr>';
 					echo "<td>$keyword->name</td>";
-					for($i = 0; $i < 10; $i++){
-						$positionField = "$dates[$i]:$project->id:$searcherRegion->index";
+					foreach($dates as $date){
+						$positionField = "$date:$project->id:$searcherRegion->index";
 						if(isset($keyword->positionsData->$positionField->position)){
 							$pos = ($keyword->positionsData->$positionField->position)?$keyword->positionsData->$positionField->position:'--';
 						}else{
