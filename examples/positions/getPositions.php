@@ -9,6 +9,7 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
+
 include(__DIR__.'/../../autoload.php');
 
 $TVSession = new TV\Session();
@@ -69,6 +70,7 @@ try{
 	foreach($dates as $date){
 		echo "<th>$date</th>";
 	}
+	echo '</tr>';
 	
 	foreach($projects as $project){
 		$projectName = $project->name;
@@ -90,11 +92,12 @@ try{
 						}
 						echo "<td>$pos</td>";
 					}
+					echo '</tr>';
 				}
 				echo '</tr>';
 			}
-			echo '</table>';
 		}
+		echo '</table>';
 	}
 }catch(Exception $e){
 	echo $e->getMessage();
