@@ -28,6 +28,7 @@ try{
 	$pageOfKeywordsImporter = $keywordsImporter->exec();
 
 	if($pageOfKeywordsImporter->getErrors()) throw new \Exception($pageOfKeywordsImporter->getErrorsString());
+	
 	$resultOfKeywordsImporter = $pageOfKeywordsImporter->getResult();
 
 	echo "
