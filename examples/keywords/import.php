@@ -28,11 +28,11 @@ try{
 	$pageOfKeywordsImporter = $keywordsImporter->exec();
 
 	if($pageOfKeywordsImporter->getErrors()) throw new \Exception($pageOfKeywordsImporter->getErrorsString());
-	
+
 	$resultOfKeywordsImporter = $pageOfKeywordsImporter->getResult();
 
 	echo "
-		Количество отправленных ключевых фраз: $resultOfKeywordsImporter->countSended<br>\n
+		Количество отправленных ключевых фраз: $resultOfKeywordsImporter->countSended<br>
 		Количество найденных дублей: $resultOfKeywordsImporter->countDuplicated<br>\n
 		Количество добавленных ключевых фраз: $resultOfKeywordsImporter->countAdded<br>\n
 		Количество обновленных ключевых фраз: $resultOfKeywordsImporter->countChanged
