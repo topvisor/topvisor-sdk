@@ -22,6 +22,9 @@ composer.json
 Для работы с api требуется авторизоваться.
 
 ```php
+// вместо "..." необходимо прописать путь до файла autoload
+include(__DIR__.'/../../vendor/autoload.php');
+
 use Topvisor\TopvisorSDK\V2 as TV;
 
 $userId = ''; // подставьте ваш user id
