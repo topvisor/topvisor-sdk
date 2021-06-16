@@ -10,7 +10,7 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
-include(__DIR__.'/../../autoload.php');
+include(__DIR__.'/../../vendor/autoload.php');
 
 $TVSession = new TV\Session();
 

@@ -11,7 +11,7 @@
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
-include(__DIR__.'/../../autoload.php');
+include(__DIR__.'/../../vendor/autoload.php');
 
 $TVSession = new TV\Session(); // создание сессии: https://topvisor.ru/api/v2/sdk-php/session/
 
