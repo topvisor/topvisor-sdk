@@ -23,7 +23,7 @@ composer.json
 
 ```php
 // вместо "..." необходимо прописать путь до файла autoload
-include(__DIR__.'/../../vendor/autoload.php');
+include(__DIR__.'/.../vendor/autoload.php');
 
 use Topvisor\TopvisorSDK\V2 as TV;
 
