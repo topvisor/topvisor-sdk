@@ -45,7 +45,7 @@ class Page{
 
 			$headersString = implode("\n", $this->headers);
 			switch(true){
-				case preg_match('/^content-disposition: attachment/m', strtolower($headersString)):
+				case preg_match('/^content-disposition: attachment/im', $headersString):
 					$this->setFileResult($response);
 
 					break;
