@@ -134,7 +134,7 @@ class Page{
 	function getErrorsString(){
 		$errorsString = [];
 		foreach($this->errors as $error){
-			$errorsString[] = $error->string.($error->code?" ($error->code)":'').($error->detail?": $error->detail":'');
+			$errorsString[] = $error->string.($error->code?" ($error->code)":'').($error->detail?': '.json_encode($error->detail, JSON_UNESCAPED_UNICODE):'');
 		}
 		$errorsString = implode("<br>", $errorsString);
 
